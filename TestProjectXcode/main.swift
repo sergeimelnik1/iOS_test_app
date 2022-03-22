@@ -599,7 +599,7 @@ class CreditCardOperation {
     var cardIsBlocked = false
     
     // пытаемся приобрести вещь
-    func buySomethig(thing: thing) throws {
+    func buySomething(thing: thing) throws {
         guard cardIsBlocked == false else{
             throw CreditCardOperationError.frozenBalance
         }
@@ -641,7 +641,7 @@ class CreditCardOperation {
 extension CreditCardOperationError: CustomStringConvertible {
     var description: String {
         switch self {
-        case .insufficientFunds(let moneyNeeded): return "У вас нет денег на карте для совершения оплаты. Ваш баланс: \(operation.balance) урб, необходимо: \(moneyNeeded) руб"
+        case .insufficientFunds(let moneyNeeded): return "У вас нет денег на карте для совершения оплаты. Ваш баланс: \(operation.balance) руб, необходимо: \(moneyNeeded) руб"
         case .frozenBalance: return "Ваш счет заблокирован по каким-то причинам. За дополнительной информацией обратитесь, пожалуйста, в банк."
         }
     }
@@ -651,7 +651,7 @@ extension CreditCardOperationError: CustomStringConvertible {
 //балуемся с  нашей картой
 let operation = CreditCardOperation()
 do {
-    try operation.buySomethig(thing: .init(price: 890.7))
+    try operation.buySomething(thing: .init(price: 890.7))
 } catch let error as CreditCardOperationError {
     print(error.description)
 }
@@ -659,7 +659,7 @@ operation.printBalance()
 operation.depositeMoney(someMoney: 10000)
 operation.printBalance()
 do {
-    try operation.buySomethig(thing: .init(price: 70000))
+    try operation.buySomething(thing: .init(price: 70000))
 } catch let error as CreditCardOperationError {
     print(error.description)
 }
@@ -667,7 +667,7 @@ do {
 operation.printBalance()
 
 do {
-    try operation.buySomethig(thing: .init(price: 39109.3))
+    try operation.buySomething(thing: .init(price: 39109.3))
 } catch let error as CreditCardOperationError {
     print(error.description)
 }
@@ -679,7 +679,7 @@ operation.changeCardState(cardIsBlocked: true)
 
 // ничего не подозревая, мы пытаемся купить что-то на 90 рублей.
 do {
-    try operation.buySomethig(thing: .init(price: 90))
+    try operation.buySomething(thing: .init(price: 90))
 } catch let error as CreditCardOperationError {
     print(error.description)
 }
