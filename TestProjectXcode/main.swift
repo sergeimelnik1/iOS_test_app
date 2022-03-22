@@ -574,6 +574,7 @@ import Foundation
 //Придумать класс, методы которого могут создавать непоправимые ошибки. Реализовать их с помощью try/catch.
 //Придумать класс, методы которого могут завершаться неудачей. Реализовать их с использованием Error.
 
+//РЕШЕНИЕ ЗАДАЧИ
 
 // возможные ошибки при попытке оплатить кредиткой
 enum CreditCardOperationError: Error {
@@ -594,11 +595,11 @@ class CreditCardOperation {
     let limit: Double = -30000
     // изначальный баланс
     var balance: Double = 0
-    // состояние карты, наша карта может быть заблокирована банком
+    // начальное значение блокировки карты
     var cardIsBlocked = false
     
     // пытаемся приобрести вещь
-    func buySomethig(thing: thing)throws {
+    func buySomethig(thing: thing) throws {
         guard cardIsBlocked == false else{
             throw CreditCardOperationError.frozenBalance
         }
@@ -636,12 +637,12 @@ class CreditCardOperation {
     }
 }
 
-// ключевое улучшение кода: описанияе ошибок, чтобы упростить себе жизнь и вызов docatch()
+// описанияе ошибок, чтобы упростить себе жизнь и вызов docatch()
 extension CreditCardOperationError: CustomStringConvertible {
     var description: String {
         switch self {
-        case .insufficientFunds(let moneyNeeded): return "There is not enough money on the card to carry out this operation. Your balance: \(operation.balance) rub, indispensably: \(moneyNeeded) руб"
-        case .frozenBalance: return "Your balance is frozen for some reason. For more information, please contact the Bank."
+        case .insufficientFunds(let moneyNeeded): return "У вас нет денег на карте для совершения оплаты. Ваш баланс: \(operation.balance) урб, необходимо: \(moneyNeeded) руб"
+        case .frozenBalance: return "Ваш счет заблокирован по каким-то причинам. За дополнительной информацией обратитесь, пожалуйста, в банк."
         }
     }
 }
@@ -662,12 +663,15 @@ do {
 } catch let error as CreditCardOperationError {
     print(error.description)
 }
+
 operation.printBalance()
+
 do {
     try operation.buySomethig(thing: .init(price: 39109.3))
 } catch let error as CreditCardOperationError {
     print(error.description)
 }
+
 operation.printBalance()
 
 // банку не понравилось, что у нас такой отрицательный баланс и он заподозрил подозрительную активность по нашей карточке. Результат - баланс заморожен.
