@@ -637,7 +637,7 @@ class CreditCardOperation {
     }
 }
 
-// описанияе ошибок, чтобы упростить себе жизнь и вызов docatch()
+// описания ошибок, чтобы упростить себе жизнь и вызов docatch()
 extension CreditCardOperationError: CustomStringConvertible {
     var description: String {
         switch self {
