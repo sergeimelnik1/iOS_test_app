@@ -1,5 +1,5 @@
 import Foundation
-// MARK: - Первый учебник
+// MARK: - Первая задача
 
 //----------Первое задание-----------
 //Решить квадратное уравнение.
@@ -85,7 +85,7 @@ import Foundation
 //    return round(summa * 100) / 100
 //}
 
-// MARK: - Второй учебник
+// MARK: - Вторая задача
 
 
 //----------Первое задание-----------
@@ -146,7 +146,7 @@ import Foundation
 //var massDel = mass.compactMap{$0 % 2 != 0 && $0 % 3 != 0}
 //print(massDel)
 
-// MARK: - Третий учебник
+// MARK: - Третья задача
 
 //----------Первое задание-----------
 //Написать функцию, которая определяет, четное число или нет.
@@ -207,7 +207,7 @@ import Foundation
 //print(secondCar.carBrand, secondCar.yearManufactured, secondCar.engineStart, secondCar.openWindows, secondCar.filedVolume)
 
 
-// MARK: - Четвертый учебник
+// MARK: - Четвертая задача
 
 //class Car {
 //    var carBrand: String
@@ -277,7 +277,7 @@ import Foundation
 //print(bmw.windows())
 //побольше методов дернуть
 
-// MARK: - Пятый учебник
+// MARK: - Пятая задача
 
 //Создать протокол «Car» и описать свойства, общие для автомобилей, а также метод действия.
 //Создать расширения для протокола «Car» и реализовать в них методы конкретных действий с автомобилем: открыть/закрыть окно, запустить/заглушить двигатель и т.д. (по одному методу на действие, реализовывать следует только те действия, реализация которых общая для всех автомобилей).
@@ -299,7 +299,7 @@ import Foundation
 //
 //extension Car: CarProtocol {
 //    var horsePower: Int? {
-//        <#code#>
+//
 //    }
 //
 //    func openTrunk() {
@@ -347,7 +347,7 @@ import Foundation
 //var firstCar = sportCar().brandName
 //var secondCar = tunkCar().brandName
 
-// MARK: - Шестой учебник
+// MARK: - Шестая задача
 
 //Реализовать свой тип коллекции «очередь» (queue) c использованием дженериков.
 //Добавить ему несколько методов высшего порядка, полезных для этой коллекции (пример: filter для массивов)
@@ -441,7 +441,7 @@ import Foundation
 //let honoursPupil = pupil.myFilter(predicate: {$0.groupId == 5})
 //print(honoursPupil)
 
-// MARK: - Седьмой учебник
+// MARK: - Седьмая задача
 ////Первый пример из учебника
 //class Factory {
 //    fileprivate var employes = [
@@ -577,111 +577,141 @@ import Foundation
 //РЕШЕНИЕ ЗАДАЧИ
 
 // возможные ошибки при попытке оплатить кредиткой
-enum CreditCardOperationError: Error {
-    // ошибка: недостаточно средств на карте
-    case insufficientFunds (moneyNeeded: Double)
-    // ошибка: баланс карточки заморожен банков по каким-то причинам
-    case frozenBalance
+//enum CreditCardOperationError: Error {
+//    // ошибка: недостаточно средств на карте
+//    case insufficientFunds (moneyNeeded: Double)
+//    // ошибка: баланс карточки заморожен банков по каким-то причинам
+//    case frozenBalance
+//}
+//
+//// вещь, которую мы хотим приобрести, имеет цену
+//struct thing {
+//    var price: Double
+//}
+//
+//
+//class CreditCardOperation {
+//    //зафиксированный лимит для этой карты
+//    let limit: Double = -30000
+//    // изначальный баланс
+//    var balance: Double = 0
+//    // начальное значение блокировки карты
+//    var cardIsBlocked = false
+//
+//    // пытаемся приобрести вещь
+//    func buySomething(thing: thing) throws {
+//        guard cardIsBlocked == false else{
+//            throw CreditCardOperationError.frozenBalance
+//        }
+//        // провека на возможность позволить купить себе эту вещь
+//        guard thing.price <= (-limit + self.balance) else {
+//            //рассчитывает необходимый остаток средств на карте с учётом лимита
+//            if balance < 0 {
+//                throw CreditCardOperationError.insufficientFunds(moneyNeeded: thing.price + limit + balance)
+//            } else {
+//                throw CreditCardOperationError.insufficientFunds(moneyNeeded: thing.price + limit - balance)
+//            }
+//        }
+//        // списываем деньги за вещь с карты
+//        balance = self.balance - thing.price
+//    }
+//
+//    // функция для внесения какой-либо суммы денег
+//    func depositeMoney (someMoney: Double) {
+//        balance = self.balance + someMoney
+//    }
+//
+//    // функция "узнай свой баланс"
+//    func printBalance() {
+//        print ("Баланс \(balance) рублей")
+//    }
+//
+//    // банк может заблокировать нашу карту
+//    func changeCardState(cardIsBlocked: Bool) {
+//        switch cardIsBlocked {
+//        case true:
+//            self.cardIsBlocked = true
+//        case false:
+//            self.cardIsBlocked = false
+//        }
+//    }
+//}
+//
+//// описания ошибок, чтобы упростить себе жизнь и вызов docatch()
+//extension CreditCardOperationError: CustomStringConvertible {
+//    var description: String {
+//        switch self {
+//        case .insufficientFunds(let moneyNeeded): return "У вас нет денег на карте для совершения оплаты. Ваш баланс: \(operation.balance) руб, необходимо: \(moneyNeeded) руб"
+//        case .frozenBalance: return "Ваш счет заблокирован по каким-то причинам. За дополнительной информацией обратитесь, пожалуйста, в банк."
+//        }
+//    }
+//}
+//
+//
+////балуемся с  нашей картой
+//let operation = CreditCardOperation()
+//do {
+//    try operation.buySomething(thing: .init(price: 890.7))
+//} catch let error as CreditCardOperationError {
+//    print(error.description)
+//}
+//operation.printBalance()
+//operation.depositeMoney(someMoney: 10000)
+//operation.printBalance()
+//do {
+//    try operation.buySomething(thing: .init(price: 70000))
+//} catch let error as CreditCardOperationError {
+//    print(error.description)
+//}
+//
+//operation.printBalance()
+//
+//do {
+//    try operation.buySomething(thing: .init(price: 39109.3))
+//} catch let error as CreditCardOperationError {
+//    print(error.description)
+//}
+//
+//operation.printBalance()
+//
+//// банку не понравилось, что у нас такой отрицательный баланс и он заподозрил подозрительную активность по нашей карточке. Результат - баланс заморожен.
+//operation.changeCardState(cardIsBlocked: true)
+//
+//// ничего не подозревая, мы пытаемся купить что-то на 90 рублей.
+//do {
+//    try operation.buySomething(thing: .init(price: 90))
+//} catch let error as CreditCardOperationError {
+//    print(error.description)
+//}
+
+
+// MARK: - Девятая задача
+
+//Напишите программу, которая читает слово и печатает все буквы алфавита, которые не используются в этом слове.
+//Учитываются только строчные буквы.
+
+var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+print("Введите слово:")
+
+guard var inputWord = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
 }
-
-// вещь, которую мы хотим приобрести, имеет цену
-struct thing {
-    var price: Double
-}
-
-
-class CreditCardOperation {
-    //зафиксированный лимит для этой карты
-    let limit: Double = -30000
-    // изначальный баланс
-    var balance: Double = 0
-    // начальное значение блокировки карты
-    var cardIsBlocked = false
-    
-    // пытаемся приобрести вещь
-    func buySomething(thing: thing) throws {
-        guard cardIsBlocked == false else{
-            throw CreditCardOperationError.frozenBalance
-        }
-        // провека на возможность позволить купить себе эту вещь
-        guard thing.price <= (-limit + self.balance) else {
-            //рассчитывает необходимый остаток средств на карте с учётом лимита
-            if balance < 0 {
-                throw CreditCardOperationError.insufficientFunds(moneyNeeded: thing.price + limit + balance)
-            } else {
-                throw CreditCardOperationError.insufficientFunds(moneyNeeded: thing.price + limit - balance)
-            }
-        }
-        // списываем деньги за вещь с карты
-        balance = self.balance - thing.price
+var outputWord = [Character]()
+for character in inputWord {
+    if character.isLowercase {
+    outputWord.append(character)
+    } else {
+        continue
     }
-    
-    // функция для внесения какой-либо суммы денег
-    func depositeMoney (someMoney: Double) {
-        balance = self.balance + someMoney
-    }
-    
-    // функция "узнай свой баланс"
-    func printBalance() {
-        print ("Баланс \(balance) рублей")
-    }
-    
-    // банк может заблокировать нашу карту
-    func changeCardState(cardIsBlocked: Bool) {
-        switch cardIsBlocked {
-        case true:
-            self.cardIsBlocked = true
-        case false:
-            self.cardIsBlocked = false
-        }
-    }
 }
-
-// описания ошибок, чтобы упростить себе жизнь и вызов docatch()
-extension CreditCardOperationError: CustomStringConvertible {
-    var description: String {
-        switch self {
-        case .insufficientFunds(let moneyNeeded): return "У вас нет денег на карте для совершения оплаты. Ваш баланс: \(operation.balance) руб, необходимо: \(moneyNeeded) руб"
-        case .frozenBalance: return "Ваш счет заблокирован по каким-то причинам. За дополнительной информацией обратитесь, пожалуйста, в банк."
-        }
-    }
-}
+print(outputWord)
+//затем нужно отфильтровать массив alphabet по маске массива outputWords
+var set = Set(outputWord)
+print(alphabet.subtracting(set).sorted())
 
 
-//балуемся с  нашей картой
-let operation = CreditCardOperation()
-do {
-    try operation.buySomething(thing: .init(price: 890.7))
-} catch let error as CreditCardOperationError {
-    print(error.description)
-}
-operation.printBalance()
-operation.depositeMoney(someMoney: 10000)
-operation.printBalance()
-do {
-    try operation.buySomething(thing: .init(price: 70000))
-} catch let error as CreditCardOperationError {
-    print(error.description)
-}
+// MARK: - Десятая задача
 
-operation.printBalance()
-
-do {
-    try operation.buySomething(thing: .init(price: 39109.3))
-} catch let error as CreditCardOperationError {
-    print(error.description)
-}
-
-operation.printBalance()
-
-// банку не понравилось, что у нас такой отрицательный баланс и он заподозрил подозрительную активность по нашей карточке. Результат - баланс заморожен.
-operation.changeCardState(cardIsBlocked: true)
-
-// ничего не подозревая, мы пытаемся купить что-то на 90 рублей.
-do {
-    try operation.buySomething(thing: .init(price: 90))
-} catch let error as CreditCardOperationError {
-    print(error.description)
-}
-
+//Напишите программу, которая читает комбинацию букв и цифр и печатает первую цифру в ней. Гарантируется, что в комбинации есть хотя бы одна цифра.
 
