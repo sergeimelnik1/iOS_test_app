@@ -72,7 +72,7 @@ class GameScene: SKScene {
         // устанавливаем категорию взаимодействия с другими объектами
         self.physicsBody?.categoryBitMask = CollisionCategories.EdgeBody
         // устанавливаем категории, с которыми будут пересекаться края сцены
-        self.physicsBody?.categoryBitMask = CollisionCategories.Snake | CollisionCategories.SnakeHead
+        self.physicsBody?.collisionBitMask = CollisionCategories.Snake | CollisionCategories.SnakeHead
     }
     
     // вызывается при нажатии на экран
@@ -129,14 +129,34 @@ class GameScene: SKScene {
         // Добавляем яблоко на сцену
         self.addChild(apple)
     }
+    
+    //перезапускаем игру после коллизии со стеной
     private func restart() {
         print("Restart done")
-//       snake = nil
-//        view?.scene?.removeAllChildren()
-//        snake = Snake(atPoint: CGPoint(x: view?.scene!.frame.midX ?? 0, y: view?.scene!.frame.midY ?? 0))
-//        self.addChild(snake!)
-////        snake = Snake(at: CGPoint(x: scene.frame.midX, y: scene.frame.midY))
-//        createApple()
+       snake = nil
+        view?.scene?.removeAllChildren()
+        snake = Snake(atPoint: CGPoint(x: view?.scene!.frame.midX ?? 0, y: view?.scene!.frame.midY ?? 0))
+        self.addChild(snake!)
+//        snake = Snake(at: CGPoint(x: scene.frame.midX, y: scene.frame.midY))
+        createApple()
+        // создаем кнопки и логику вновь. Пока что говнокод, но потом надо сделать единый механизм создания кнопок по короткому методу
+        let counterClockwiseButton = SKShapeNode()
+        counterClockwiseButton.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 45, height: 45)).cgPath
+        counterClockwiseButton.position = CGPoint(x: (view?.scene!.frame.minX)!+30, y: (view?.scene!.frame.minY)!+30)
+        counterClockwiseButton.fillColor = UIColor.gray
+        counterClockwiseButton.strokeColor = UIColor.gray
+        self.physicsWorld.contactDelegate = self
+        counterClockwiseButton.lineWidth = 10
+        counterClockwiseButton.name = "counterClockwiseButton"
+        self.addChild(counterClockwiseButton)
+        let clockwiseButton = SKShapeNode()
+        clockwiseButton.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 45, height: 45)).cgPath
+        clockwiseButton.position = CGPoint(x: (view?.scene!.frame.maxX)!-80, y: (view?.scene!.frame.minY)!+30)
+        clockwiseButton.fillColor = UIColor.gray
+        clockwiseButton.strokeColor = UIColor.gray
+        clockwiseButton.lineWidth = 10
+        clockwiseButton.name = "clockwiseButton"
+        self.addChild(clockwiseButton)
     }
 }
 
@@ -159,6 +179,7 @@ extension GameScene: SKPhysicsContactDelegate {
             apple?.removeFromParent()
             // создаем новое яблоко
             createApple()
+            
         case CollisionCategories.EdgeBody: // проверяем, что это стенка экрана
             //игра стартует заново
             restart()
