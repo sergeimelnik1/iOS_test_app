@@ -72,8 +72,7 @@ class GameScene: SKScene {
         // устанавливаем категорию взаимодействия с другими объектами
         self.physicsBody?.categoryBitMask = CollisionCategories.EdgeBody
         // устанавливаем категории, с которыми будут пересекаться края сцены
-        self.physicsBody?.categoryBitMask = CollisionCategories.Snake
-        self.physicsBody?.categoryBitMask = CollisionCategories.SnakeHead
+        self.physicsBody?.categoryBitMask = CollisionCategories.Snake | CollisionCategories.SnakeHead
     }
     
     // вызывается при нажатии на экран
@@ -161,7 +160,7 @@ extension GameScene: SKPhysicsContactDelegate {
             // создаем новое яблоко
             createApple()
         case CollisionCategories.EdgeBody: // проверяем, что это стенка экрана
-            
+            //игра стартует заново
             restart()
         break // соприкосновение со стеной будет домашним заданием
         default:
