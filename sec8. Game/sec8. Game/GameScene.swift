@@ -8,7 +8,22 @@
 import SpriteKit
 import GameplayKit
 
+// Категория пересечения объектов
+struct CollisionCategories{
+    // Тело змеи
+static let Snake: UInt32 = 0x1 << 0
+    // Голова змеи
+static let SnakeHead: UInt32 = 0x1 << 1
+    // Яблоко
+static let Apple: UInt32 = 0x1 << 2
+    // Край сцены (экрана)
+    static let EdgeBody:   UInt32 = 0x1 << 3
+}
+
 class GameScene: SKScene {
+    //наша змея
+    var snake: Snake?
+    
     // вызывается при первом запуске сцены
     override func didMove(to view: SKView) {
         // цвет фона сцены
@@ -32,6 +47,8 @@ class GameScene: SKScene {
         counterClockwiseButton.fillColor = UIColor.gray
         // цвет рамки
         counterClockwiseButton.strokeColor = UIColor.gray
+        // Делаем нашу сцену делегатом соприкосновений
+        self.physicsWorld.contactDelegate = self
         // толщина рамки
         counterClockwiseButton.lineWidth = 10
         // имя объекта для взаимодействия
@@ -47,6 +64,16 @@ class GameScene: SKScene {
         clockwiseButton.lineWidth = 10
         clockwiseButton.name = "clockwiseButton"
         self.addChild(clockwiseButton)
+        
+        createApple()
+        
+        snake = Snake(atPoint: CGPoint(x: view.scene!.frame.midX, y: view.scene!.frame.midY))
+        self.addChild(snake!)
+        // устанавливаем категорию взаимодействия с другими объектами
+        self.physicsBody?.categoryBitMask = CollisionCategories.EdgeBody
+        // устанавливаем категории, с которыми будут пересекаться края сцены
+        self.physicsBody?.categoryBitMask = CollisionCategories.Snake
+        self.physicsBody?.categoryBitMask = CollisionCategories.SnakeHead
     }
     
     // вызывается при нажатии на экран
@@ -64,6 +91,12 @@ class GameScene: SKScene {
             
             // если это наша кнопка, заливаем ее зеленым
             touchedNode.fillColor = .green
+            // определяем, какая кнопка нажата, и поворачиваем в нужную сторону
+            if touchedNode.name == "counterClockwiseButton" {
+                snake!.moveCounterClockwise()
+            } else if touchedNode.name == "clockwiseButton" {
+                snake!.moveClockwise()
+            }
         }
     }
     
@@ -84,5 +117,56 @@ class GameScene: SKScene {
     }
     // вызывается при обработке кадров сцены
     override func update(_ currentTime: TimeInterval) {
+        snake!.move()
     }
+    
+    // Создаем яблоко в случайной точке сцены
+    func createApple(){
+        // Случайная точка на экране
+        let randX  = CGFloat(arc4random_uniform(UInt32(view!.scene!.frame.maxX-5)) + 1)
+        let randY = CGFloat(arc4random_uniform(UInt32(view!.scene!.frame.maxY-5)) + 1)
+        // Создаем яблоко
+        let apple = Apple(position: CGPoint(x: randX, y: randY))
+        // Добавляем яблоко на сцену
+        self.addChild(apple)
+    }
+    private func restart() {
+        print("Restart done")
+//       snake = nil
+//        view?.scene?.removeAllChildren()
+//        snake = Snake(atPoint: CGPoint(x: view?.scene!.frame.midX ?? 0, y: view?.scene!.frame.midY ?? 0))
+//        self.addChild(snake!)
+////        snake = Snake(at: CGPoint(x: scene.frame.midX, y: scene.frame.midY))
+//        createApple()
+    }
+}
+
+// Имплементируем протокол
+extension GameScene: SKPhysicsContactDelegate {
+// Добавляем метод отслеживания начала столкновения
+    func didBegin(_ contact: SKPhysicsContact) {
+        // логическая сумма масок соприкоснувшихся объектов
+        let bodyes = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        // вычитаем из суммы голову змеи, и у нас остается маска второго объекта
+        let collisionObject = bodyes ^ CollisionCategories.SnakeHead
+        // проверяем, что это за второй объект
+        switch collisionObject {
+        case CollisionCategories.Apple: // проверяем, что это яблоко
+            // яблоко – это один из двух объектов, которые соприкоснулись. Используем тернарный оператор, чтобы вычислить, какой именно
+            let apple = contact.bodyA.node is Apple ? contact.bodyA.node: contact.bodyB.node
+            // добавляем к змее еще одну секцию
+            snake?.addBodyPart()
+            // удаляем съеденное яблоко со сцены
+            apple?.removeFromParent()
+            // создаем новое яблоко
+            createApple()
+        case CollisionCategories.EdgeBody: // проверяем, что это стенка экрана
+            
+            restart()
+        break // соприкосновение со стеной будет домашним заданием
+        default:
+        break
+        }
+    
+}
 }

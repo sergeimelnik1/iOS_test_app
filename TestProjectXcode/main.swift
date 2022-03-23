@@ -684,6 +684,4 @@ do {
     print(error.description)
 }
 
-// MARK: - Восьмой учебник
-
 
