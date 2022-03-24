@@ -717,23 +717,64 @@ import Foundation
 
 //Напишите программу, которая читает комбинацию букв и цифр и печатает первую цифру в ней. Гарантируется, что в комбинации есть хотя бы одна цифра.
 //первый вариант решения через множества и объединение
-var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
-var numbers: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+//var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
+//var numbers: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+//
+//print("Введите слово:")
+//guard var inputWord = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//}
+//
+//var outputWord = [Character]()
+//for character in inputWord {
+//    if character.isNumber {
+//    outputWord.append(character)
+//    } else {
+//        continue
+//    }
+//}
+//print(outputWord[0])
 
-print("Введите слово:")
-guard var inputWord = readLine() else {
+// MARK: - Одинадцатая задача
+
+//Напишите программу, которая читает букву и печатает все предшествующие буквы английского алфавита.
+
+var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var alphabet1: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
+
+print("Введите букву:")
+var inputWord: String?
+for _ in 0...9 {
+    guard let inputWord = readLine() else {
         print("Неверный ввод. Повторите попытку")
         exit(0)
-}
-
-var outputWord = [Character]()
-for character in inputWord {
-    if character.isNumber {
-    outputWord.append(character)
+    }
+    if inputWord.count == 1 && !isInt(text: inputWord) {
+        break
     } else {
+        print("Не корректный ввод, повторите")
         continue
     }
 }
-print(outputWord[0])
+//guard var inputWord = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//}
+//дальше добавляем проверку на то, что вообще было введено и чистим, если ввели цифры и лишние буквы
 
-// MARK: - Одинадцатая задача
+
+var item = 0
+while alphabet[item] != inputWord {
+    print(alphabet[item])
+    item += 1
+}
+
+func isInt(text: String) -> Bool {
+        guard let _ = Int(text) else { return false }
+        return true
+    }
+
+// MARK: - Двенадцатая задача
+
+
