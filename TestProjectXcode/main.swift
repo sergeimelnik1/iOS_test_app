@@ -740,41 +740,71 @@ import Foundation
 
 //Напишите программу, которая читает букву и печатает все предшествующие буквы английского алфавита.
 
-var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-var alphabet1: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
-
-print("Введите букву:")
-var inputWord: String?
-for _ in 0...9 {
-    guard let inputWord = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    if inputWord.count == 1 && !isInt(text: inputWord) {
-        break
-    } else {
-        print("Не корректный ввод, повторите")
-        continue
-    }
-}
-//guard var inputWord = readLine() else {
-//        print("Неверный ввод. Повторите попытку")
-//        exit(0)
+//var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+//
+//print("Введите букву:")
+////тут я пытаюсь сделать логику проверки на количество символов в строке и действительно ли единственный символ это String
+////var inputWord: String?
+////for _ in 0...9 {
+////    guard let inputWord = readLine() else {
+////        print("Неверный ввод. Повторите попытку")
+////        exit(0)
+////    }
+////    if inputWord.count == 1 && !isInt(text: inputWord) {
+////        break
+////    } else {
+////        print("Не корректный ввод, повторите")
+////        continue
+////    }
+////}
+////дальше добавляем проверку на то, что вообще было введено и чистим, если ввели цифры и лишние буквы
+//
+//guard let inputWord = readLine() else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
 //}
-//дальше добавляем проверку на то, что вообще было введено и чистим, если ввели цифры и лишние буквы
-
-
-var item = 0
-while alphabet[item] != inputWord {
-    print(alphabet[item])
-    item += 1
-}
-
-func isInt(text: String) -> Bool {
-        guard let _ = Int(text) else { return false }
-        return true
-    }
+//
+//var item = 0
+//while alphabet[item] != inputWord {
+//    print(alphabet[item])
+//    item += 1
+//}
+//
+//func isInt(text: String) -> Bool {
+//        guard let _ = Int(text) else { return false }
+//        return true
+//    }
 
 // MARK: - Двенадцатая задача
 
+
+//Напишите программу, которая читает слово и печатает количество символов, встречающихся в нем только один раз.
+
+var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
+print("Введите слово:")
+guard var inputWord = readLine() else {
+    print("Неверный ввод. Повторите попытку")
+    exit(0)
+}
+inputWord = inputWord.lowercased()//для соотнесения с alphabet делаем их строчными
+
+var outputWord = [Character]()
+for character in inputWord {
+    outputWord.append(character)
+}
+print(outputWord)
+
+var endWord = [Character]()
+print(outputWord.count)
+for item in 0...outputWord.count {
+//сначала мы проверяем входит ли текущий элемент item в новый массив endWord.
+//    Если нет, то добавляем его в массив. Если да, то идем дальше по циклу
+}
+
+
+//print(tooLow.contains(endWord))
+
+
+// MARK: - Тринадцатая задача
 
