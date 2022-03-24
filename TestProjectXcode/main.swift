@@ -690,28 +690,50 @@ import Foundation
 //Напишите программу, которая читает слово и печатает все буквы алфавита, которые не используются в этом слове.
 //Учитываются только строчные буквы.
 
-var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-print("Введите слово:")
-
-guard var inputWord = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-}
-var outputWord = [Character]()
-for character in inputWord {
-    if character.isLowercase {
-    outputWord.append(character)
-    } else {
-        continue
-    }
-}
-print(outputWord)
-//затем нужно отфильтровать массив alphabet по маске массива outputWords
-var set = Set(outputWord)
-print(alphabet.subtracting(set).sorted())
+//var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+//print("Введите слово:")
+//
+//guard var inputWord = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//}
+//var outputWord = [Character]()
+//for character in inputWord {
+//    if character.isLowercase {
+//    outputWord.append(character)
+//    } else {
+//        continue
+//    }
+//}
+//print(outputWord)
+////затем нужно отфильтровать массив alphabet по маске массива outputWords
+//var set = Set(outputWord)
+//let entryMas = alphabet.subtracting(set).sorted()
+//print(entryMas)
+//print(entryMas[0]) //выводим первый элемент множества
 
 
 // MARK: - Десятая задача
 
 //Напишите программу, которая читает комбинацию букв и цифр и печатает первую цифру в ней. Гарантируется, что в комбинации есть хотя бы одна цифра.
+//первый вариант решения через множества и объединение
+var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
+var numbers: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+print("Введите слово:")
+guard var inputWord = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+}
+
+var outputWord = [Character]()
+for character in inputWord {
+    if character.isNumber {
+    outputWord.append(character)
+    } else {
+        continue
+    }
+}
+print(outputWord[0])
+
+// MARK: - Одинадцатая задача
