@@ -780,27 +780,55 @@ import Foundation
 
 //Напишите программу, которая читает слово и печатает количество символов, встречающихся в нем только один раз.
 
-print("Введите слово:")
-guard var inputWord = readLine() else {
-    print("Неверный ввод. Повторите попытку")
-    exit(0)
-}
-inputWord = inputWord.lowercased()//для приравнивания строчных и заглавных
-
-var outputWord = [Character]()
-for character in inputWord {
-    outputWord.append(character)
-}
-var endWord = [Character]()
-for item in 0...outputWord.count - 1 {
-    if endWord.contains(outputWord[item]){
-        continue
-    } else {
-        endWord.append(outputWord[item])
-    }
-}
-
-print(endWord.count)
+//print("Введите слово:")
+//guard var inputWord = readLine() else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//inputWord = inputWord.lowercased()//для приравнивания строчных и заглавных
+//
+//var outputWord = [Character]()
+//for character in inputWord {
+//    outputWord.append(character)
+//}
+//var endWord = [Character]()
+//for item in 0...outputWord.count - 1 {
+//    if endWord.contains(outputWord[item]){
+//        continue
+//    } else {
+//        endWord.append(outputWord[item])
+//    }
+//}
+//
+//print(endWord.count)
 
 // MARK: - Тринадцатая задача
 
+
+//Есть игра, в которой игрокам нужно выставлять корабли на поле боя. Давайте создадим программу, чтобы выяснить, где можно разместить корабли.
+//У нас есть поле с 5 строками ( X ) и 5   столбцами ( Y ), всего 25 ячеек. Напишите программу, которая считывает координаты ( X , Y ) трех кораблей размером с одну ячейку и печатает все доступные строки ( X ) и столбцы ( Y ) для новых кораблей.
+//Новые корабли можно размещать только в свободных строках и столбцах, поэтому вам необходимо вывести номера строк и столбцов, в которых нет кораблей.
+//Выведите строки ( X ) и столбцы ( Y ) в двух разных строках (список пустых строк в первой строке и список пустых столбцов в следующей строке).
+//Все выходные координаты должны быть разделены пробелом . Не добавляйте лишние пробелы в конце строк вывода.
+//
+//Пример ввода 1:
+//1 2
+//2 3
+//4 1
+//Пример вывода 1:
+//3 5
+//4 5
+//Пример ввода 2:
+//1 3
+//1 4
+//1 2
+//Пример вывода 2:
+//2 3 4 5
+//1 5
+
+var gamePlace = Array(repeating: Array(repeating: 0, count: 8), count: 8)
+// сначала мы считываем три раза строку
+
+print(gamePlace)
+
+func 
