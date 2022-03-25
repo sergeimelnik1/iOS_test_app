@@ -827,52 +827,52 @@ import Foundation
 //1 5
 
 //создание двумерного массива 5х5
-let size = 5
-var gamePlace = Array(repeating: Array(repeating: 0, count: size), count: size)
-func printMass(board: [[Int]]) {
-    board.forEach({print($0)})
-}
-printMass(board: gamePlace)
-//1. Берем первую строку, разбиваем её на 2 части, переводим их в Int, сравниваем входят ли они в границы нашей области, если все ок, то идем к следующему вводу строки
-//затем считываем значения позиций кораблей
-print("Введите координаты первого корабля:")
-for item in 0...9 {
-    if item == 9 {
-        print("Может быть уже правильно введешь?")
-    }
-    guard let positionWarship_1 = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    let separatePosition_1 = positionWarship_1.components(separatedBy: " ")
-    //две проверки на то, что введены именно цифры
-    guard let first1 = Int(separatePosition_1[0]) else {
-        print("Вы ввели не координату")
-        continue
-    }
-    guard let first2 = Int(separatePosition_1[1]) else {
-        print("Вы ввели не координату")
-        continue
-    }
-    guard 1...size ~= first1 else {
-        print("Число не в диапазоне значений")
-        continue
-    }
-    guard 1...size ~= first2 else {
-        print("Число не в диапазоне значений")
-        continue
-    }
-    let firstTuple: (Int, Int) = (first1, first2)
-    change(gamePlace: &gamePlace, position: firstTuple)
-    if item == 9 {
-        print("Умница, наконец смог")
-        print(firstTuple)
-    } else {
-        print(firstTuple)
-        printMass(board: gamePlace)
-    }
-    break
-}
+//let size = 5
+//var gamePlace = Array(repeating: Array(repeating: 0, count: size), count: size)
+//func printMass(board: [[Int]]) {
+//    board.forEach({print($0)})
+//}
+//printMass(board: gamePlace)
+////1. Берем первую строку, разбиваем её на 2 части, переводим их в Int, сравниваем входят ли они в границы нашей области, если все ок, то идем к следующему вводу строки
+////затем считываем значения позиций кораблей
+//print("Введите координаты первого корабля:")
+//for item in 0...9 {
+//    if item == 9 {
+//        print("Может быть уже правильно введешь?")
+//    }
+//    guard let positionWarship_1 = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    let separatePosition_1 = positionWarship_1.components(separatedBy: " ")
+//    //две проверки на то, что введены именно цифры
+//    guard let first1 = Int(separatePosition_1[0]) else {
+//        print("Вы ввели не координату")
+//        continue
+//    }
+//    guard let first2 = Int(separatePosition_1[1]) else {
+//        print("Вы ввели не координату")
+//        continue
+//    }
+//    guard 1...size ~= first1 else {
+//        print("Число не в диапазоне значений")
+//        continue
+//    }
+//    guard 1...size ~= first2 else {
+//        print("Число не в диапазоне значений")
+//        continue
+//    }
+//    let firstTuple: (Int, Int) = (first1, first2)
+//    change(gamePlace: &gamePlace, position: firstTuple)
+//    if item == 9 {
+//        print("Умница, наконец смог")
+//        print(firstTuple)
+//    } else {
+//        print(firstTuple)
+//        printMass(board: gamePlace)
+//    }
+//    break
+//}
 
 //print("Введите координаты второго корабля:")
 //for _ in 0...9 {
@@ -934,30 +934,30 @@ for item in 0...9 {
 //    print(thirdTuple)
 //    break
 //}
-//далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
-//почему-то не работает с 5ками
-func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
-    for (i, row) in gamePlace.enumerated() {
-        for (j, _) in row.enumerated() {
-            if i == position.0 && j == position.1 {
-                gamePlace[position.0 - 1][position.1 - 1] = 1
-            }
-            
-        }
-    }
-}
-
-for (i, row) in gamePlace.enumerated() {
-    for (j, _) in row.enumerated() {
-//здесь мы должны сделать проверку на то, что все элементы 0, если же нет, то идем в следующую итерацию
-        //мы сравниваем все элементы j по строке i
-        if gamePlace[i][j] != 1 {
-            print(j + 1)
-        } else {
-            continue
-        }
-    }
-}
+////далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
+////почему-то не работает с 5ками
+//func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
+//    for (i, row) in gamePlace.enumerated() {
+//        for (j, _) in row.enumerated() {
+//            if i == position.0 && j == position.1 {
+//                gamePlace[position.0 - 1][position.1 - 1] = 1
+//            }
+//
+//        }
+//    }
+//}
+//
+//for (i, row) in gamePlace.enumerated() {
+//    for (j, _) in row.enumerated() {
+////здесь мы должны сделать проверку на то, что все элементы 0, если же нет, то идем в следующую итерацию
+//        //мы сравниваем все элементы j по строке i
+//        if gamePlace[i][j] != 1 {
+//            print(j + 1)
+//        } else {
+//            continue
+//        }
+//    }
+//}
 
 //затем необходимо вывести сначала все строки, где нет элементов и затем все столбцы
 
@@ -976,40 +976,110 @@ for (i, row) in gamePlace.enumerated() {
 //Пример вывода 1:
 //PaSsw0rD
 
-guard let entryPassword = readLine() else {
-    print("Неверный ввод. Повторите попытку")
-    exit(0)
+
+var countPassword = 0
+print("Введите минимальное количество прописных букв")
+
+for _ in 0...9 {
+    guard let enterLowCaseLetters = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    guard let lowCaseLetters  = Int(enterLowCaseLetters) else {
+        print("Вы ввели не длину пароля")
+        continue
+    }
+    countPassword += lowCaseLetters
+    break
+}
+print("Введите минимальное количество заглавных букв")
+for _ in 0...9 {
+    guard let enterUpCaseLetters = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    guard let upCaseLetters  = Int(enterUpCaseLetters) else {
+        print("Вы ввели не длину пароля")
+        continue
+    }
+    countPassword += upCaseLetters
+    break
 }
 
+print("Введите минимальное количество цифр")
+for _ in 0...9 {
+    guard let enterCountNumbers = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    guard let countNumbers  = Int(enterCountNumbers) else {
+        print("Вы ввели не длину пароля")
+        continue
+    }
+    countPassword += countNumbers
+    break
+}
 
+print("Введите размер пароля")
+print("Размер пароля не может быть меньше \(countPassword)")
 
+for _ in 0...9 {
+    guard let enterLengthPassword = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    //две проверки на то, что введена именно цифра
+    guard let lengthPassword  = Int(enterLengthPassword), lengthPassword > countPassword else {
+        print("Введите корректную информацию")
+        continue
+    }
+    break
+}
 
+//проверяем есть ли рядом стоящие элементы
+func isSame(mass: String) -> Bool {
+    var flag = false
+    var outputWord = [Character]()
+    
+    for character in mass {
+        outputWord.append(character)
+    }
+    
+    for item in 1...outputWord.count {
+        if outputWord[item] == outputWord[item - 1]{
+            flag = true
+            break
+        } else {
+        flag = false
+        }
+    }
+   
+    return flag
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(randomString(lowCaseLetters: lowCaseLetters, upCaseLetters: upCaseLetters, countNumbers: countNumbers))
+//для генерации каждого из блоков делаем отдельный словарь из заглавных, строчных и цифр и генерируем рандомно по частям его String((0..<length).map{ _ in letters.randomElement()! })
+//затем конкатенацией объединяем пароль и в цикле мешаем его элементы до тех пор пока рядом не будут стоять одинаковые элементы
+func randomString(lowCaseLetters: Int, upCaseLetters: Int, countNumbers: Int) -> String {
+    //задаем пуст
+    var endString = ""
+    let lowLetters = "abcdefghijklmnopqrstuvwxyz"
+    let upLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let numbers = "0123456789"
+    let randomLowLetters = String((0..<lowCaseLetters).map{ _ in lowLetters.randomElement()! })
+    let randomUpLetters = String((0..<upCaseLetters).map{ _ in upLetters.randomElement()! })
+    let randomNumbers = String((0..<countNumbers).map{ _ in numbers.randomElement()! })
+    endString = randomLowLetters + randomUpLetters + randomNumbers
+    for _ in 0...100 {
+        if !isSame(mass: endString) {
+            endString = String((0..<endString.count).map{ _ in endString.randomElement()! })
+            break
+        }else {
+            continue
+        }
+    }
+    return endString
+}
 
 
 // MARK: - Пятнадцатая задача
@@ -1034,6 +1104,13 @@ guard let entryPassword = readLine() else {
 //port : 8080
 //cookie : not found
 //host : localhost
+
+
+
+
+
+
+
 
 
 
