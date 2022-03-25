@@ -780,31 +780,27 @@ import Foundation
 
 //Напишите программу, которая читает слово и печатает количество символов, встречающихся в нем только один раз.
 
-var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-
 print("Введите слово:")
 guard var inputWord = readLine() else {
     print("Неверный ввод. Повторите попытку")
     exit(0)
 }
-inputWord = inputWord.lowercased()//для соотнесения с alphabet делаем их строчными
+inputWord = inputWord.lowercased()//для приравнивания строчных и заглавных
 
 var outputWord = [Character]()
 for character in inputWord {
     outputWord.append(character)
 }
-print(outputWord)
-
 var endWord = [Character]()
-print(outputWord.count)
-for item in 0...outputWord.count {
-//сначала мы проверяем входит ли текущий элемент item в новый массив endWord.
-//    Если нет, то добавляем его в массив. Если да, то идем дальше по циклу
+for item in 0...outputWord.count - 1 {
+    if endWord.contains(outputWord[item]){
+        continue
+    } else {
+        endWord.append(outputWord[item])
+    }
 }
 
-
-//print(tooLow.contains(endWord))
-
+print(endWord.count)
 
 // MARK: - Тринадцатая задача
 
