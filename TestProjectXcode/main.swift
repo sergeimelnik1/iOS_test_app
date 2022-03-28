@@ -1142,9 +1142,6 @@ import Foundation
 //let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
 //
 //if let components = components {
-//    components.host
-//    components.query
-//    components.percentEncodedQuery
 //
 //    if let queryItems = components.queryItems {
 //        for queryItem in queryItems {
@@ -1172,7 +1169,7 @@ import Foundation
 
 
 //Все буквы английского алфавита делятся на гласные и согласные.
-//Гласные: аa, e, i, o, u, y.
+//Гласные: a, e, i, o, u, y.
 //Остальные буквы согласные.
 //Слово считается благозвучным, если в нем нет трех и более гласных или согласных подряд. В противном случае он считается несогласованным.
 //Ваша задача состоит в том, чтобы из неблагозвучных слов составить благозвучные. В слово можно вставлять любые буквы. Выведите минимальное количество символов, необходимое для составления благозвучного слова из заданного слова.
@@ -1196,6 +1193,71 @@ import Foundation
 //Sample Output 4:
 //2
 
+//func isVowel(c: String) -> Bool {
+//    let vowels: [String] = ["a", "e", "i", "o", "u", "y"]
+//    var flag = false
+//    for item in 0...vowels.count - 1 {
+//        if vowels[item] == c{
+//            flag = true
+//        } else {
+//            continue
+//        }
+//}
+//     return flag
+//}
+//
+////func checkWord(word: String) {
+////    var count = 0
+////    var currentTypeCount = 0
+////    var lastTypeVowel = true
+////    for item in 0...word.count - 1 {
+////        if (isVowel(c: String(item)) == lastTypeVowel) {
+////            if (currentTypeCount + 1 == 3) {
+////                count += 1
+////                currentTypeCount = 1
+////            }
+////        } else {
+////            lastTypeVowel = !lastTypeVowel
+////            currentTypeCount = 1
+////        }
+////}
+////    print(count)
+////}
+//
+//func checkWord(word: String) {
+//    var vowels = 0
+//    var consonants = 0
+//    var i = 0
+//
+//    for item in 0...word.count - 1 {
+////        if isVowel(c: word.startIndex.advancedBy(item)) {
+////        if isVowel(c: word.index(word.startIndex, offsetBy: item)) {
+////        if isVowel(c: word[item]) {
+//        if isVowel(c: Array(arrayLiteral: word)[item]) { //как лучше всего передавать сюда элемент переданернр в качесиве аргумента функции?
+//            vowels += 1
+//            consonants = 0
+//        } else {
+//            consonants += 1
+//            vowels = 0
+//        }
+//        if consonants == 3 || vowels == 3 {
+//            i += 1
+//            consonants = 0
+//            vowels = 0
+//        }
+//    }
+//    print(i)
+//}
+//
+//print("Введите слово для анализа:")
+//guard let baseWord = readLine() else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//
+//checkWord(word: baseWord)
+
+
 
 // MARK: - Семнадцатая задача
 
@@ -1209,6 +1271,37 @@ import Foundation
 //Hello 3
 //Sample Output 1:
 //loHel
+
+
+//print("Введите слово и цифру через пробел")
+//    guard let enterLine = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    let enterWord = enterLine.components(separatedBy: " ")
+//let word = enterWord[0]
+////    guard let word = String(enterWord[0]) else {
+////        print("Ошибка")
+////        exit(0)
+////    }
+//    guard let number = Int(enterWord[1]) else {
+//        print("Ошибка")
+//        exit(0)
+//    }
+////программа проверяет длину слова, если все ок, то копирует в переменную часть слова, затем удаляет в изначальном все, а потом конкатенацией складывает в print'е все
+//
+////ну и нужно сделать метод по итогу
+//
+//func cutWord(word: String, number: Int) {
+//    let lenght = word.count
+//    if lenght > number {
+//        print(word.suffix(number - 1) + word.prefix(number))
+//    } else {
+//        print(word)
+//    }
+//}
+//cutWord(word: word, number: number)
+
 
 
 
