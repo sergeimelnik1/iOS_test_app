@@ -312,7 +312,7 @@ import Foundation
 //    func openWindows(){
 //
 //    }
-//    
+//
 //    func onEngine(){
 //
 //    }
@@ -334,9 +334,9 @@ import Foundation
 //    func closeTrunk() {
 //        trunkFlag = false
 //    }
-//    
+//
 //    var trunkFlag: Bool = false
-//    
+//
 //    var horsePower: Int?
 //    var volumeTank: Int?
 //    func openTrunk() {
@@ -349,7 +349,7 @@ import Foundation
 //    func closeTrunk() {
 //        trunkFlag = false
 //    }
-//    
+//
 //    var trunkFlag: Bool = false
 //    var horsePower: Int?
 //    var clearance: Int?
@@ -1117,7 +1117,7 @@ import Foundation
 
 
 //Вы хотите взломать сайт и получить все доступные параметры. Выведите их « ключ : значение ». Если параметр не имеет значения, выведите « not found ».
-//Если вы найдете пароль (параметр pass ), вы должны еще раз вывести его значение после всех параметров, но уже с ключом password . Если URL-адрес не содержит параметра pass , ничего не печатайте после параметров. Но если присутствует параметр pass , его значение не может быть пустым
+//Если вы найдете пароль (параметр pass), вы должны еще раз вывести его значение после всех параметров, но уже с ключом password . Если URL-адрес не содержит параметра pass , ничего не печатайте после параметров. Но если присутствует параметр pass , его значение не может быть пустым
 //Примечание . Порядок параметров должен быть таким же, как в URL.
 //Совет : изучите структуру URL.
 //Пример ввода 1:
@@ -1135,11 +1135,34 @@ import Foundation
 //cookie : not found
 //host : localhost
 
-
-
-
-
-
+////let url = URL(string: "https://chickenhouse.ru/?iikomenu=&stoplist=yes&pass=123qwe&location=tver")!
+//let url = URL(string: "https://target.com/index.html?pass=12345&port=8080&cookie=&host=localhost")!
+////let url = URL(string: "https://target.com/index.html?port=8080&cookie=&host=localhost")!
+//
+//let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+//
+//if let components = components {
+//    components.host
+//    components.query
+//    components.percentEncodedQuery
+//
+//    if let queryItems = components.queryItems {
+//        for queryItem in queryItems {
+//            if queryItem.value == "" {
+//                print("\(queryItem.name): not found")
+//            } else {
+//                print("\(queryItem.name): \(queryItem.value!)")
+//            }
+//        }
+//        for queryItem in queryItems {
+//            if queryItem.name == "pass" && queryItem.name != "password" {
+//                print("password: \(queryItem.value!)")
+//            } else {
+//                continue
+//            }
+//        }
+//    }
+//}
 
 
 
