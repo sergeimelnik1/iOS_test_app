@@ -1327,7 +1327,7 @@ import Foundation
 //if enterLine.count % 2 == 0 {
 //    print("Четный")
 //    print(enterLine.prefix(enterLine.count / 2 - 1) + enterLine.suffix(enterLine.count / 2 - 1))
-//    
+//
 //} else {
 //    print("Нечетный")
 //    print(enterLine.prefix(enterLine.count / 2) + enterLine.suffix(enterLine.count / 2))
@@ -1353,24 +1353,21 @@ import Foundation
 //Sample Output 2:
 //3
 
-//print("Введите слово и цифру через пробел")
+//print("Введите два слова через enter")
 //    guard let enterLine = readLine() else {
 //        print("Неверный ввод. Повторите попытку")
 //        exit(0)
 //    }
-//    let enterWord = enterLine.components(separatedBy: " ")
-//let word = enterWord[0]
-////    guard let word = String(enterWord[0]) else {
-////        print("Ошибка")
-////        exit(0)
-////    }
-//    guard let number = Int(enterWord[1]) else {
-//        print("Ошибка")
-//        exit(0)
-//    }
-
-
-
+//guard let word = readLine() else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//
+//let tok = enterLine.components(separatedBy: word)
+//print(tok.count - 1)
+//
+//
+//
 
 
 // MARK: - Двадцатая задача
