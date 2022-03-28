@@ -1318,6 +1318,23 @@ import Foundation
 //Sample Output 2:
 //ad
 
+//print("Введите слово")
+//    guard let enterLine = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//
+//if enterLine.count % 2 == 0 {
+//    print("Четный")
+//    print(enterLine.prefix(enterLine.count / 2 - 1) + enterLine.suffix(enterLine.count / 2 - 1))
+//    
+//} else {
+//    print("Нечетный")
+//    print(enterLine.prefix(enterLine.count / 2) + enterLine.suffix(enterLine.count / 2))
+//}
+
+
+
 
 // MARK: - Девятьнадцатая задача
 
@@ -1335,6 +1352,25 @@ import Foundation
 //ll
 //Sample Output 2:
 //3
+
+//print("Введите слово и цифру через пробел")
+//    guard let enterLine = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    let enterWord = enterLine.components(separatedBy: " ")
+//let word = enterWord[0]
+////    guard let word = String(enterWord[0]) else {
+////        print("Ошибка")
+////        exit(0)
+////    }
+//    guard let number = Int(enterWord[1]) else {
+//        print("Ошибка")
+//        exit(0)
+//    }
+
+
+
 
 
 // MARK: - Двадцатая задача
