@@ -903,7 +903,7 @@ import Foundation
 //    }
 //    break
 //}
-
+//
 //print("Введите координаты второго корабля:")
 //for _ in 0...9 {
 //
@@ -935,6 +935,7 @@ import Foundation
 //    print(secondTuple)
 //    break
 //}
+//printMass(board: gamePlace)
 //print("Введите координаты третьего корабля:")
 //for _ in 0...9 {
 //    guard let positionWarship_3 = readLine() else {
@@ -964,19 +965,22 @@ import Foundation
 //    print(thirdTuple)
 //    break
 //}
+//printMass(board: gamePlace)
+//
 ////далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
 ////почему-то не работает с 5ками
 //func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
 //    for (i, row) in gamePlace.enumerated() {
-//        for (j, _) in row.enumerated() {
-//            if i == position.0 && j == position.1 {
-//                gamePlace[position.0 - 1][position.1 - 1] = 1
+//        if i == position.0 - 1 {
+//            for (j, _) in row.enumerated() {
+//                if j == position.1 - 1 {
+//                    gamePlace[position.0 - 1][position.1 - 1] = 1
+//                }
 //            }
-//
 //        }
 //    }
 //}
-//
+//ВОПРОС: не могу понять, почему не добавляет в 5ый столбец и строку. Перелазил все, не могу найти где проблема с индексами. потому что до 4ого все ок правильно добавляет
 //for (i, row) in gamePlace.enumerated() {
 //    for (j, _) in row.enumerated() {
 ////здесь мы должны сделать проверку на то, что все элементы 0, если же нет, то идем в следующую итерацию
@@ -1006,7 +1010,7 @@ import Foundation
 //Пример вывода 1:
 //PaSsw0rD
 
-
+//var lowCaseLetterz = 0
 //var countPassword = 0
 //print("Введите минимальное количество прописных букв")
 //
@@ -1015,10 +1019,11 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        exit(0)
 //    }
-//    guard let lowCaseLetters  = Int(enterLowCaseLetters) else {
+//    guard let lowCaseLetters = Int(enterLowCaseLetters) else {
 //        print("Вы ввели не длину пароля")
 //        continue
 //    }
+//    lowCaseLetterz = lowCaseLetters
 //    countPassword += lowCaseLetters
 //    break
 //}
@@ -1087,7 +1092,8 @@ import Foundation
 //    return flag
 //}
 //
-//print(randomString(lowCaseLetters: lowCaseLetters, upCaseLetters: upCaseLetters, countNumbers: countNumbers))
+//print(randomString(lowCaseLetters: lowCaseLetterz, upCaseLetters: upCaseLetters, countNumbers: countNumbers)) //не может по какой-то причине найти свойства...
+//
 ////для генерации каждого из блоков делаем отдельный словарь из заглавных, строчных и цифр и генерируем рандомно по частям его String((0..<length).map{ _ in letters.randomElement()! })
 ////затем конкатенацией объединяем пароль и в цикле мешаем его элементы до тех пор пока рядом не будут стоять одинаковые элементы
 //func randomString(lowCaseLetters: Int, upCaseLetters: Int, countNumbers: Int) -> String {
@@ -1193,47 +1199,29 @@ import Foundation
 //Sample Output 4:
 //2
 
-//func isVowel(c: String) -> Bool {
-//    let vowels: [String] = ["a", "e", "i", "o", "u", "y"]
+//func isVowel(c: Character) -> Bool {
+//    let vowels: [Character] = ["a", "e", "i", "o", "u", "y"]
 //    var flag = false
-//    for item in 0...vowels.count - 1 {
-//        if vowels[item] == c{
+//    for item in vowels {
+//        if item == c{
 //            flag = true
-//        } else {
-//            continue
 //        }
+//    }
+//    return flag
 //}
-//     return flag
-//}
-//
-////func checkWord(word: String) {
-////    var count = 0
-////    var currentTypeCount = 0
-////    var lastTypeVowel = true
-////    for item in 0...word.count - 1 {
-////        if (isVowel(c: String(item)) == lastTypeVowel) {
-////            if (currentTypeCount + 1 == 3) {
-////                count += 1
-////                currentTypeCount = 1
-////            }
-////        } else {
-////            lastTypeVowel = !lastTypeVowel
-////            currentTypeCount = 1
-////        }
-////}
-////    print(count)
-////}
 //
 //func checkWord(word: String) {
 //    var vowels = 0
 //    var consonants = 0
 //    var i = 0
-//
-//    for item in 0...word.count - 1 {
-////        if isVowel(c: word.startIndex.advancedBy(item)) {
-////        if isVowel(c: word.index(word.startIndex, offsetBy: item)) {
-////        if isVowel(c: word[item]) {
-//        if isVowel(c: Array(arrayLiteral: word)[item]) { //как лучше всего передавать сюда элемент переданернр в качесиве аргумента функции?
+//    var outputWord = [Character]()
+//    for character in word {
+//        if character.isLowercase {
+//            outputWord.append(character)
+//        }
+//    }
+//    for item in 0..<outputWord.count {
+//        if isVowel(c: outputWord[item]) {
 //            vowels += 1
 //            consonants = 0
 //        } else {
@@ -1242,12 +1230,18 @@ import Foundation
 //        }
 //        if consonants == 3 || vowels == 3 {
 //            i += 1
+//            if consonants == 3 {
+//                outputWord.insert("o", at: item)
+//            } else {
+//                outputWord.insert("x", at: item)
+//            }
 //            consonants = 0
 //            vowels = 0
 //        }
 //    }
 //    print(i)
 //}
+//
 //
 //print("Введите слово для анализа:")
 //guard let baseWord = readLine() else {
@@ -1372,7 +1366,7 @@ import Foundation
 
 // MARK: - Двадцатая задача
 
-//Напишите программу, которая читает строку и выводит trueтолько тогда, когда буквы этой строки образуют подстроку упорядоченного английского алфавита, например, «abc», «xy», «pqrst».
+//Напишите программу, которая читает строку и выводит true только тогда, когда буквы этой строки образуют подстроку упорядоченного английского алфавита, например, «abc», «xy», «pqrst».
 //В противном случае он должен распечатать false.
 //Примечание: строка может состоять из одного символа. Предположим, что пустая строка является подстрокой алфавита.
 //
@@ -1384,6 +1378,31 @@ import Foundation
 //bce
 //Sample Output 2:
 //false
+//
+//let alphabet = "abcdefghijklmnopqrstuvwxyz"
+//
+//print("Введите строку")
+//guard let enterLine = readLine()?.lowercased() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//print(enterLine.first!)//тут мы нашли перый элемент введенной фразы
+//
+////ниже нам нужно найти индекс этой найденной буквы и вывести диапазон от этой буквы длиной с фразу и сравнить с исходным
+//var pos = 0
+//
+//if let idx = alphabet.firstIndex(of: enterLine.first!) {
+//    pos = alphabet.distance(from: alphabet.startIndex, to: idx)
+//    print("Найдено \(enterLine.first!) на позиции \(pos - 1)")
+//}
+//else {
+//    print("Не найдено")
+//}
+//
+//let nsRange = NSRange(location: pos, length: enterLine.count)
+//let myNSString = alphabet as NSString
+//
+//
 
 
 // MARK: - Двадцать первая задача
@@ -1400,6 +1419,13 @@ import Foundation
 //NO
 
 
+//print("Введите число")
+//    guard let enterLine = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+
+
 // MARK: - Двадцать вторая задача
 
 //Напишите программу, которая читает строку и проверяет, является ли она палиндромом, т.е. читает одинаково как слева направо, так и справа налево.
@@ -1409,6 +1435,12 @@ import Foundation
 //kayak
 //Sample Output 1:
 //yes
+
+//print("Введите строку")
+//    guard let enterLine = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
 
 // MARK: - Двадцать третья задача
 
@@ -1425,6 +1457,12 @@ import Foundation
 //123456
 //Sample Output 2:
 //Regular
+
+//print("Введите строку")
+//    guard let enterLine = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
 
 
 // MARK: - Двадцать четвертая задача
