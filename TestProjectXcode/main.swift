@@ -1581,6 +1581,11 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        exit(0)
 //    }
+//if enterLine.prefix(enterLine.count/2) == String(enterLine.suffix(enterLine.count/2).reversed()) {
+//    print(true)
+//} else {
+//    print(false)
+//}
 
 // MARK: - Двадцать третья задача
 
