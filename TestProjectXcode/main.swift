@@ -1664,3 +1664,47 @@ import Foundation
 // MARK: - Двадцать четвертая задача
 
 //Выполнить Проект ‘Соедини Четыре’:
+
+print("Connect four")
+print("First player's name:")
+guard let firstPlayerName = readLine() else {
+    print("Неверный ввод. Повторите попытку")
+    exit(0)
+}
+print("Second player's name:")
+guard let secondPlayerName = readLine() else {
+    print("Неверный ввод. Повторите попытку")
+    exit(0)
+}
+
+var globalRows = 0
+var globalColumns = 0
+for _ in 0...99 {
+    print("Set the board dimensions (Rows x Coloums)")
+    print("Press Enter for default (6 x 7)")
+    guard let boardDimensions = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    if boardDimensions != "" {
+        let enterBoardDimensions = boardDimensions.components(separatedBy: " x ")
+        
+        guard let first = enterBoardDimensions.first, let Rows = Int(first), Rows <= 9, Rows >= 5 else {
+            print("Board should be from 5 to 9")
+            break
+        }
+        
+        guard let last = enterBoardDimensions.last, let Columns = Int(last), Columns <= 9, Columns >= 5 else {
+            print("Board should be from 5 to 9")
+            break
+        }
+        globalRows = Rows
+        globalColumns = Columns
+        print(globalRows)
+        print(globalColumns)
+        break
+    } else {
+        globalRows = 6
+        globalColumns = 7
+    }
+}
