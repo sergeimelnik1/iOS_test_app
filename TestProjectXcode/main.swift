@@ -1009,117 +1009,168 @@ import Foundation
 //3 4 1 8
 //Пример вывода 1:
 //PaSsw0rD
-
-var lowCaseLetterz = 0
-var upCaseLettersz = 0
-var countNumbersz = 0
-var countPassword = 0
-print("Введите минимальное количество прописных букв")
-
-for _ in 0...9 {
-    guard let enterLowCaseLetters = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    guard let lowCaseLetters = Int(enterLowCaseLetters) else {
-        print("Вы ввели не длину пароля")
-        continue
-    }
-    lowCaseLetterz = lowCaseLetters
-    countPassword += lowCaseLetters
-    break
-}
-print("Введите минимальное количество заглавных букв")
-for _ in 0...9 {
-    guard let enterUpCaseLetters = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    guard let upCaseLetters  = Int(enterUpCaseLetters) else {
-        print("Вы ввели не длину пароля")
-        continue
-    }
-    upCaseLettersz = upCaseLetters
-    countPassword += upCaseLetters
-    break
-}
-
-print("Введите минимальное количество цифр")
-for _ in 0...9 {
-    guard let enterCountNumbers = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    guard let countNumbers  = Int(enterCountNumbers) else {
-        print("Вы ввели не длину пароля")
-        continue
-    }
-    countNumbersz = countNumbers
-    countPassword += countNumbers
-    break
-}
-
-print("Введите размер пароля")
-print("Размер пароля не может быть меньше \(countPassword)")
-
-for _ in 0...9 {
-    guard let enterLengthPassword = readLine() else {
-        print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    //две проверки на то, что введена именно цифра
-    guard let lengthPassword  = Int(enterLengthPassword), lengthPassword > countPassword else {
-        print("Введите корректную информацию")
-        continue
-    }
-    break
-}
-
-//проверяем есть ли рядом стоящие элементы
-func isSame(mass: String) -> Bool {
-    var flag = false
-    var outputWord = [Character]()
-
-    for character in mass {
-        outputWord.append(character)
-    }
-
-    for item in 1...outputWord.count {
-        if outputWord[item] == outputWord[item - 1]{
-            flag = true
-            break
-        } else {
-        flag = false
-        }
-    }
-
-    return flag
-}
-
-print(randomString(lowCaseLetters: lowCaseLetterz, upCaseLetters: upCaseLettersz, countNumbers: countNumbersz))
-
-//для генерации каждого из блоков делаем отдельный словарь из заглавных, строчных и цифр и генерируем рандомно по частям его String((0..<length).map{ _ in letters.randomElement()! })
-//затем конкатенацией объединяем пароль и в цикле мешаем его элементы до тех пор пока рядом не будут стоять одинаковые элементы
-func randomString(lowCaseLetters: Int, upCaseLetters: Int, countNumbers: Int) -> String {
-    //задаем пуст
-    var endString = ""
-    let lowLetters = "abcdefghijklmnopqrstuvwxyz"
-    let upLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let numbers = "0123456789"
-    let randomLowLetters = String((0..<lowCaseLetters).map{ _ in lowLetters.randomElement()! })
-    let randomUpLetters = String((0..<upCaseLetters).map{ _ in upLetters.randomElement()! })
-    let randomNumbers = String((0..<countNumbers).map{ _ in numbers.randomElement()! })
-    endString = randomLowLetters + randomUpLetters + randomNumbers
-    for _ in 0...100 {
-        if isSame(mass: endString) {
-            endString = String((endString).map{ _ in endString.randomElement()! })
-            break
-        }else {
-            continue
-        }
-    }
-    return endString
-}
+//
+//var lowCaseLetterz = 0
+//var upCaseLettersz = 0
+//var countNumbersz = 0
+//var countPassword = 0
+//var enterLengthPasswordz = 0
+//print("Введите минимальное количество прописных букв")
+//
+//for _ in 0...9 {
+//    guard let enterLowCaseLetters = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    guard let lowCaseLetters = Int(enterLowCaseLetters) else {
+//        print("Вы ввели не длину пароля")
+//        continue
+//    }
+//    lowCaseLetterz = lowCaseLetters
+//    countPassword += lowCaseLetters
+//    break
+//}
+//print("Введите минимальное количество заглавных букв")
+//for _ in 0...9 {
+//    guard let enterUpCaseLetters = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    guard let upCaseLetters  = Int(enterUpCaseLetters) else {
+//        print("Вы ввели не длину пароля")
+//        continue
+//    }
+//    upCaseLettersz = upCaseLetters
+//    countPassword += upCaseLetters
+//    break
+//}
+//
+//print("Введите минимальное количество цифр")
+//for _ in 0...9 {
+//    guard let enterCountNumbers = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    guard let countNumbers  = Int(enterCountNumbers) else {
+//        print("Вы ввели не длину пароля")
+//        continue
+//    }
+//    countNumbersz = countNumbers
+//    countPassword += countNumbers
+//    break
+//}
+//
+//print("Введите размер пароля")
+//print("Размер пароля не может быть меньше \(countPassword)")
+//
+//for _ in 0...9 {
+//    guard let enterLengthPassword = readLine() else {
+//        print("Неверный ввод. Повторите попытку")
+//        exit(0)
+//    }
+//    //две проверки на то, что введена именно цифра
+//    guard let lengthPassword  = Int(enterLengthPassword), lengthPassword >= countPassword else {
+//        print("Введите корректную информацию")
+//        continue
+//    }
+//    enterLengthPasswordz = lengthPassword
+//    break
+//}
+//
+////проверяем есть ли рядом стоящие элементы
+//func isSame(mass: String) -> Bool {
+//    var flag = false
+//    var outputWord = [Character]()
+//
+//    for character in mass {
+//        outputWord.append(character)
+//    }
+//    if outputWord.count == 1 {
+//        return false
+//    } else {
+//    for item in 0..<outputWord.count - 1{
+//        print("Сравниваю элемент \(outputWord[item + 1]) с \(outputWord[item])")
+//        if outputWord[item + 1] == outputWord[item]{
+//            flag = true
+//            break
+//        } else {
+//        flag = false
+//        }
+//    }
+//
+//    return flag
+//    }
+//}
+//
+//randomString(lowCaseLetters: lowCaseLetterz, upCaseLetters: upCaseLettersz, countNumbers: countNumbersz, enterLengthPassword: enterLengthPasswordz)
+//
+////для генерации каждого из блоков делаем отдельный словарь из заглавных, строчных и цифр и генерируем рандомно по частям его String((0..<length).map{ _ in letters.randomElement()! })
+////затем конкатенацией объединяем пароль и в цикле мешаем его элементы до тех пор пока рядом не будут стоять одинаковые элементы
+//func randomString(lowCaseLetters: Int, upCaseLetters: Int, countNumbers: Int, enterLengthPassword: Int) -> String {
+//    //задаем пуст
+//    var endString = ""
+//    let lowLetters = "abcdefghijklmnopqrstuvwxyz"
+//    let upLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+//    let numbers = "0123456789"
+//    let additionalAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+//
+//    var randomLowLetters = ""
+//    randomLowLetters = String((0..<lowCaseLetters).map{ _ in lowLetters.randomElement()! })
+//    for _ in 0...1000 {
+//        if isSame(mass: randomLowLetters) {
+//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+//            randomLowLetters = String((randomLowLetters).map{ _ in lowLetters.randomElement()! })
+//            print("Перемешиваю")
+//            continue
+//        }else {
+//            print("Я сделал \(randomLowLetters)")
+//            break
+//        }
+//    }
+//    var randomUpLetters = ""
+//    randomUpLetters = String((0..<upCaseLetters).map{ _ in upLetters.randomElement()! })
+//    for _ in 0...1000 {
+//        if isSame(mass: randomUpLetters) {
+//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+//            randomUpLetters = String((randomUpLetters).map{ _ in upLetters.randomElement()! })
+//            print("Перемешиваю")
+//            continue
+//        }else {
+//            print("Я сделал \(randomUpLetters)")
+//            break
+//        }
+//    }
+//    var randomNumbers = ""
+//    randomNumbers = String((0..<countNumbers).map{ _ in numbers.randomElement()! })
+//    for _ in 0...1000 {
+//        if isSame(mass: randomNumbers) {
+//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+//            randomNumbers = String((randomNumbers).map{ _ in numbers.randomElement()! })
+//            print("Перемешиваю")
+//            continue
+//        }else {
+//            print("Я сделал \(randomNumbers)")
+//            break
+//        }
+//    }
+//    //тут мы добавляем доп строки случайные из всего массива словаря
+//    var randomAdditional = ""
+//    randomAdditional = String((0..<enterLengthPassword - countNumbers - upCaseLetters - lowCaseLetters).map{ _ in additionalAlphabet.randomElement()! })
+//    for _ in 0...1000 {
+//        if isSame(mass: randomAdditional) {
+//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+//            randomAdditional = String((randomAdditional).map{ _ in additionalAlphabet.randomElement()! })
+//            print("Перемешиваю")
+//            continue
+//        }else {
+//            print("Я сделал \(randomAdditional)")
+//            break
+//        }
+//    }
+//    endString = randomLowLetters + randomUpLetters + randomNumbers + randomAdditional
+//    print("Итоговый пароль: \(endString)")
+//    return endString
+//}
 
 
 // MARK: - Пятнадцатая задача
