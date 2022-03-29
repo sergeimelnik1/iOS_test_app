@@ -987,31 +987,30 @@ import Foundation
 //    //тут проходимся по строкам
 //    for (i, row) in gamePlace.enumerated() {//строки
 //        var count = 0
-//            for (j, _) in row.enumerated() {//столбцы
-//                if gamePlace[i][j] == 0 {
-//                    count += 1
-//                    if count == 5{
-//                        print("Строка \(i + 1) свободна")
-//                        count = 0
-//                    }
+//        for (j, _) in row.enumerated() {//столбцы
+//            if gamePlace[i][j] == 0 {
+//                count += 1
+//                if count == 5{
+//                    print("Строка \(i + 1) свободна")
+//                    count = 0
 //                }
 //            }
 //        }
-//    //тут проходимся по столбцам
-//    for (i, row) in gamePlace.enumerated() {//строки
-//        var count = 0
-//            for (j, _) in row.enumerated() {//столбцы
-//                if gamePlace[j][i] == 0 {
-//                    count += 1
-//                    if count == 5{
-//                        print("Столбец \(j + 1) свободен")
-//                        count = 0
-//                    }
-//                }
-//            }
-//        }
-//
 //    }
+//
+//    for i in 0..<size {
+//        var count = 0
+//        for (_, row) in gamePlace.enumerated() {
+//            if row[i] == 0 {
+//                count += 1
+//                if count == 5{
+//                    print("Столбец \(i + 1) свободен")
+//                    count = 0
+//                }
+//            }
+//        }
+//    }
+//}
 
 //затем необходимо вывести сначала все строки, где нет элементов и затем все столбцы
 
@@ -1513,10 +1512,18 @@ import Foundation
 
 
 //print("Введите число")
-//    guard let enterLine = readLine() else {
-//        print("Неверный ввод. Повторите попытку")
-//        exit(0)
-//    }
+//guard let enterLine = readLine() else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//
+//guard let baseNumber = Int(enterLine) else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//print(baseNumber)
+//let firstPart = enterLine.utf8.count
+
 
 
 // MARK: - Двадцать вторая задача
