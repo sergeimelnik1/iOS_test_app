@@ -968,7 +968,6 @@ import Foundation
 //printMass(board: gamePlace)
 //
 ////далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
-////почему-то не работает с 5ками
 //func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
 //    for (i, row) in gamePlace.enumerated() {
 //        if i == position.0 - 1 {
@@ -980,18 +979,39 @@ import Foundation
 //        }
 //    }
 //}
-//ВОПРОС: не могу понять, почему не добавляет в 5ый столбец и строку. Перелазил все, не могу найти где проблема с индексами. потому что до 4ого все ок правильно добавляет
-//for (i, row) in gamePlace.enumerated() {
-//    for (j, _) in row.enumerated() {
-////здесь мы должны сделать проверку на то, что все элементы 0, если же нет, то идем в следующую итерацию
-//        //мы сравниваем все элементы j по строке i
-//        if gamePlace[i][j] != 1 {
-//            print(j + 1)
-//        } else {
-//            continue
+//checkFreePlace(gamePlace: &gamePlace)
+////инвертируем массив
+//
+////затем мне нужно проверить в цикле свободные строки и свободные столбцы
+//func checkFreePlace (gamePlace: inout [[Int]]) {
+//    //тут проходимся по строкам
+//    for (i, row) in gamePlace.enumerated() {//строки
+//        var count = 0
+//            for (j, _) in row.enumerated() {//столбцы
+//                if gamePlace[i][j] == 0 {
+//                    count += 1
+//                    if count == 5{
+//                        print("Строка \(i + 1) свободна")
+//                        count = 0
+//                    }
+//                }
+//            }
 //        }
+//    //тут проходимся по столбцам
+//    for (i, row) in gamePlace.enumerated() {//строки
+//        var count = 0
+//            for (j, _) in row.enumerated() {//столбцы
+//                if gamePlace[j][i] == 0 {
+//                    count += 1
+//                    if count == 5{
+//                        print("Столбец \(j + 1) свободен")
+//                        count = 0
+//                    }
+//                }
+//            }
+//        }
+//
 //    }
-//}
 
 //затем необходимо вывести сначала все строки, где нет элементов и затем все столбцы
 
@@ -1454,10 +1474,28 @@ import Foundation
 //    print("Не найдено")
 //}
 //
-//let nsRange = NSRange(location: pos, length: enterLine.count)
+//var newAlphabet = [Character]()
+//for character in alphabet {
+//    newAlphabet.append(character)
+//    }
+//var charEnterLine = [Character]()
+//for character in enterLine {
+//    charEnterLine.append(character)
+//    }
+//let endAlphabet = newAlphabet[pos...pos + charEnterLine.count - 1]
+//print(String(endAlphabet))
+//print(String(charEnterLine))
+//if String(endAlphabet) == String(charEnterLine) {
+//    print(true)
+//} else {
+//    print(false)
+//}
+
+////мы разделяем alphabet на char, затем выводим элементы в диапазоне и сравниваем это с другим массивом char исходным, если все ок, то отлично
+//let nsRange = NSRange(location: pos, leegngth: enterLine.count)
 //let myNSString = alphabet as NSString
-//
-//
+
+
 
 
 // MARK: - Двадцать первая задача
