@@ -1603,11 +1603,62 @@ import Foundation
 //Sample Output 2:
 //Regular
 
-//print("Введите строку")
-//    guard let enterLine = readLine() else {
-//        print("Неверный ввод. Повторите попытку")
-//        exit(0)
+//var enterLineGlobal = ""
+//print("Введите число")
+//for _ in 0...100 {
+//        guard let enterLine = readLine() else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//if enterLine.count % 2 == 0{
+//    enterLineGlobal = enterLine
+//    break
+//} else {
+//    print("Введите число четной длины")
+//}
+//}
+//
+//guard let baseNumber = Int(enterLineGlobal) else {
+//    print("Неверный ввод. Повторите попытку")
+//    exit(0)
+//}
+//
+//let firstPart = enterLineGlobal.utf8.count
+//
+////тут мы делаем массив элементов из числа
+//
+//let integerDigits = getDigitsFromString(for: enterLineGlobal)
+//
+//print(integerDigits)
+//var sum1 = 0
+//var sum2 = 0
+//for item in  0..<integerDigits.count / 2 {
+//    sum1 += integerDigits[item]
+//}
+//print(sum1)
+//for item in firstPart / 2..<firstPart {
+//    sum2 += integerDigits[item]
+//}
+//print(sum2)
+//if sum1 == sum2 {
+//    print("Число счастливое")
+//} else {
+//    print("Число не счастливое")
+//}
+//
+//
+//func getDigitsFromString(for string: String) -> [Int]{
+//        let stringInt = Array(string)
+//        var array = [Int]()
+//        for i in stringInt {
+//            if let i = Int(String(i)) {
+//                array.append(i)
+//            }
+//        }
+//        return array
 //    }
+
+
 
 
 // MARK: - Двадцать четвертая задача
