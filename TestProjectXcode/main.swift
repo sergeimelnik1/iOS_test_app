@@ -1511,19 +1511,42 @@ import Foundation
 //NO
 
 
-//print("Введите число")
-//guard let enterLine = readLine() else {
-//    print("Неверный ввод. Повторите попытку")
-//    exit(0)
-//}
-//
-//guard let baseNumber = Int(enterLine) else {
-//    print("Неверный ввод. Повторите попытку")
-//    exit(0)
-//}
-//print(baseNumber)
-//let firstPart = enterLine.utf8.count
+print("Введите число")
+guard let enterLine = readLine() else {
+    print("Неверный ввод. Повторите попытку")
+    exit(0)
+}
 
+guard let baseNumber = Int(enterLine) else {
+    print("Неверный ввод. Повторите попытку")
+    exit(0)
+}
+print(baseNumber)
+let firstPart = enterLine.utf8.count
+
+//тут мы делаем массив элементов из числа
+//https://question-it.com/questions/2387437/kak-razbit-int-na-otdelnye-tsifry
+//let integerDigits = baseNumber.digits // [1, 2, 3]
+//let integerDigits = baseNumber.compactMap{ $0.wholeNumberValue }
+//
+//let integerDigits = getDigitsFromString(for: baseNumber)
+//
+//
+//var sumedArr = array.reduce(0, combine: {$0 + $1})
+//print(sumedArr)
+
+
+
+func getDigitsFromString(for string: String) -> [Int]{
+        let stringInt = Array(string)
+        var array = [Int]()
+        for i in stringInt {
+            if let i = Int(String(i)) {
+                array.append(i)
+            }
+        }
+        return array
+    }
 
 
 // MARK: - Двадцать вторая задача
