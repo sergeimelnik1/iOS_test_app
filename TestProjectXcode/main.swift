@@ -1679,7 +1679,13 @@ guard let secondPlayerName = readLine() else {
 
 var globalRows = 0
 var globalColumns = 0
-for _ in 0...99 {
+var enterBoardDimensions = [String]()
+var first = 0
+var rows = 0
+var columns = 0
+let diapazon = [5, 6, 7, 8, 9]
+
+repeat {
     print("Set the board dimensions (Rows x Coloums)")
     print("Press Enter for default (6 x 7)")
     guard let boardDimensions = readLine() else {
@@ -1687,24 +1693,64 @@ for _ in 0...99 {
         exit(0)
     }
     if boardDimensions != "" {
-        let enterBoardDimensions = boardDimensions.components(separatedBy: " x ")
-        
-        guard let first = enterBoardDimensions.first, let Rows = Int(first), Rows <= 9, Rows >= 5 else {
+        enterBoardDimensions = boardDimensions.components(separatedBy: " x ")
+        rows = Int(enterBoardDimensions.first!)!
+        print(Int(enterBoardDimensions.first!)!)
+        columns = Int(enterBoardDimensions.last!)!
+        print(Int(enterBoardDimensions.last!)!)
+        if let first = enterBoardDimensions.first, let Rows = Int(first), Rows <= 9, Rows >= 5 {
+            if let last = enterBoardDimensions.last, let Columns = Int(last), Columns <= 9, Columns >= 5 {
+                globalRows = Rows
+                globalColumns = Columns
+            } else {
+                print("Board should be from 5 to 9")
+            }
+        } else {
             print("Board should be from 5 to 9")
-            break
         }
-        
-        guard let last = enterBoardDimensions.last, let Columns = Int(last), Columns <= 9, Columns >= 5 else {
-            print("Board should be from 5 to 9")
-            break
-        }
-        globalRows = Rows
-        globalColumns = Columns
-        print(globalRows)
-        print(globalColumns)
-        break
     } else {
         globalRows = 6
         globalColumns = 7
     }
+} while !(diapazon.contains(rows)) || !(diapazon.contains(columns)) //здесь должно быть все true, чтобы пойти по новой ветке repeat и false, чтобы выйти
+//} while !(rows > 9 && rows < 5) || !(columns > 9 && columns < 5)
+
+
+print("\(firstPlayerName) VS \(secondPlayerName)")
+print("\(rows) x \(columns) board\n")
+
+
+var gamePlace = Array(repeating: Array(repeating: "", count: rows * 2 + 1), count: columns + 2)//по горизонтали делаем в два раза больше + 1 поле, чтобы разместить в массиве границы и элементы. По вертикали
+//первый игрок это о, второй игрок *
+//создаем стенки на всем поле
+createGamePlace(board: &gamePlace)
+
+printGamePlace(board: gamePlace)
+
+func printGamePlace(board: [[String]]) {
+    for (i, row) in board.enumerated() { //строки
+        for (j, _) in row.enumerated() { //столбцы
+                    print(board[i][j], terminator: " ")
+                }
+        print("")
+            }
+        }
+
+func createGamePlace(board: inout [[String]]) {
+    for (i, row) in board.enumerated() { //строки
+        for (j, _) in row.enumerated() { //столбцы
+            if i == 0 && j % 2 == 0 && j < rows * 2 { // здесь мы заполняем первую строку номерами столбцов
+                board[i][j + 1] = "\((j + 1) / 2 + 1)"
+            } else if i == board.endIndex - 1 { //заполняем последнюю строку =
+                if j < board.endIndex{
+                board[i][j] = "\u{003D}" // =
+                }
+            } else { //заполняем все остальное через одну строку ‖
+                if j % 2 == 0  && i != 0 {
+                    board[i][j] = "\u{2016}"// ‖
+                }
+            }
+        }
+    }
 }
+
