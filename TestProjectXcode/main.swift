@@ -832,7 +832,7 @@ import Foundation
 //
 //print(endWord.count)
 
-// MARK: - Тринадцатая задача
+// MARK: - Тринадцатая. КОРАБЛИ
 
 
 //Есть игра, в которой игрокам нужно выставлять корабли на поле боя. Давайте создадим программу, чтобы выяснить, где можно разместить корабли.
@@ -1017,7 +1017,7 @@ import Foundation
 
 
 
-// MARK: - Четырнадцатая задача
+// MARK: - Четырнадцатая. ПАРОЛЬ
 
 
 
@@ -1661,12 +1661,12 @@ import Foundation
 
 
 
-// MARK: - Двадцать четвертая задача
+// MARK: - Двадцать четвертая. ИГРА
 
 //Выполнить Проект ‘Соедини Четыре’:
 var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 var playersCount: Int = 0
-var players: [(String, String)] = []
+var players: [(String, String, Int)] = []
 print("Connect four")
 print("Введите количество игроков:")
 guard let count = readLine(), let playerzCount = Int(count), playerzCount != 0 && playerzCount < alphabet.count else {
@@ -1677,7 +1677,7 @@ playersCount = playerzCount
 for i in 0..<playersCount {
     print("Player's name:")
     if let playerName = readLine() {
-        players.append((playerName, alphabet[i]))
+        players.append((playerName, alphabet[i], 0))
     }
 }
 print("Players: \(players)")
@@ -1689,7 +1689,7 @@ var first = 0
 var rows = 0
 var columns = 0
 let diapazon = [5, 6, 7, 8, 9]
-
+var countOfGame = 1
 repeat {
     print("Set the board dimensions (Rows x Coloums)")
     print("Press Enter for default (6 x 7)")
@@ -1697,6 +1697,7 @@ repeat {
         print("Неверный ввод. Повторите попытку")
         exit(0)
     }
+
     if boardDimensions != "" {
         enterBoardDimensions = boardDimensions.components(separatedBy: " x ")
         rows = Int(enterBoardDimensions.first!)!
@@ -1718,12 +1719,16 @@ repeat {
         columns = 7
         break
     }
-} while !(diapazon.contains(rows)) || !(diapazon.contains(columns)) //здесь должно быть все true, чтобы пойти по новой ветке repeat и false, чтобы выйти
-//} while !(rows > 9 && rows < 5) || !(columns > 9 && columns < 5)
-
+} while !(diapazon.contains(rows)) || !(diapazon.contains(columns))
 print("\(rows) x \(columns) board\n")
 
-
+print("Введите количество игр")
+guard let countOfGamez = readLine() else {
+    print("Неверный ввод. Повторите попытку")
+    exit(0)
+}
+countOfGame = Int(countOfGamez)!
+print("Количество игр: \(countOfGame)")
 var gamePlace = Array(repeating: Array(repeating: " ", count: rows * 2 + 1), count: columns + 2)//по горизонтали делаем в два раза больше + 1 поле, чтобы разместить в массиве границы и элементы. По вертикали
 //первый игрок это о, второй игрок *
 //создаем стенки на всем поле
@@ -1738,6 +1743,9 @@ printGamePlace(board: gamePlace)
 //тут нужен цикл, который будет просить человека ввести номер столбца до тех пор, пока не будет выбран столбец со свободным верхним элементом
 //repeat для первого игрока
 var step = 0
+var realCountOfGames = 0 //счетчик игр
+repeat {
+    print("Игра №\(realCountOfGames + 1)")
 while isGameOver(board: gamePlace) {
     repeat {
         for player in players {
@@ -1747,7 +1755,7 @@ while isGameOver(board: gamePlace) {
                 guard let stepz = readLine() else {
                     print("Неверный ввод. Повторите попытку")
                     exit(0)
-                    // подумать
+                    // подумать что нужно несколько раз крутить цикл пока не введут валидные данные
                 }
                 guard let enterSteps = Int(stepz) else { exit(0) }
                 step = enterSteps
@@ -1760,8 +1768,19 @@ while isGameOver(board: gamePlace) {
                 } else {
                     insertPiece(colomn: step, piece: player.1)
                     if checkWin(gamePlace: &gamePlace) {
-                        print("Выигрыш")
                         printGamePlace(board: gamePlace)
+                        print("ВЫИГРЫШ!")
+                        print("Игрок \(player.0) победил")
+                        addReward(name: player.0, countRewards: 2)
+                        playerTable()
+                        print("Конец игры!")
+                        flag = false //после этого нужно выкинуть вообще из цикла for
+                        break
+                    }
+                    if !isGameOver(board: gamePlace) {
+                        print("доска заполнена")
+                        print("Конец игры!")
+                        flag = false
                         break
                     }
                     printGamePlace(board: gamePlace)
@@ -1772,6 +1791,28 @@ while isGameOver(board: gamePlace) {
         break
     } while !isGameOver(board: gamePlace)
 }
+    createGamePlace(board: &gamePlace)
+    realCountOfGames += 1
+} while countOfGame <= realCountOfGames
+
+func playerTable() {
+    for player in players {
+        print("Имя: \(player.0). Знак: \(player.1). Колличество баллов: \(player.2)")
+    }
+}
+
+
+
+func addReward(name: String, countRewards: Int) {
+    for var player in players {
+        if player.0 == name {
+            player.2 += countRewards
+        }
+    }
+}
+
+
+
 //метод, который принимает в себя столбец и символ, который нужно вставить
 func insertPiece(colomn: Int, piece: String) {
     for i in stride(from: gamePlace.count - 2, through: 1, by: -1) {
@@ -1820,62 +1861,61 @@ func createGamePlace(board: inout [[String]]) {
             }
         }
     }
-
+//проверяем выиграл ли какой из участников
 func checkWin(gamePlace: inout [[String]]) -> Bool {
-//    for (i, row) in gamePlace.enumerated() {//строки
-//        var count = 0
-//        var icon = ""
-//        if i != 0 && i != gamePlace.endIndex - 1 {
-//            for (j, _) in row.enumerated() {//столбцы
-//                if gamePlace[i][j] != "\u{2016}" && gamePlace[i][j] != " " {
-//                    if j == 1 {
-//                        icon = gamePlace[i][j]
-//                        count += 1
-//                    } else {
-//                        if icon == gamePlace[i][j] {
-//                            count += 1
-//                        } else {
-//                            icon = gamePlace[i][j]
-//                            count = 1
-//                        }
-//                    }
-//                    if count == 4 {
-//                        return true
-//                    }
-//                } else {
-//                    continue
-//                }
-//            }
-//        }
-//    }
-
-    
-    //тут проходимся по строкам
+    //    тут проходимся по столбцам и смотрим одинаковые строки
     for (i, row) in gamePlace.enumerated() {//строки
         var count = 0
         var icon = ""
         if i != 0 && i != gamePlace.endIndex - 1 {
-        for (j, _) in row.enumerated() {//столбцы
-            if gamePlace[i][j] != "\u{2016}" && gamePlace[i][j] != " " {
-                if i == 1 {
-                    icon = gamePlace[i][j]
-                    count += 1
-                } else {
-                    if icon == gamePlace[i][j] {
+            for (j, _) in row.enumerated() {//столбцы
+                if gamePlace[i][j] != "\u{2016}" && gamePlace[i][j] != " " {
+                    if j == 1 {
+                        icon = gamePlace[i][j]
                         count += 1
                     } else {
-                        icon = gamePlace[i][j]
-                        count = 1
+                        if icon == gamePlace[i][j] {
+                            count += 1
+                        } else {
+                            icon = gamePlace[i][j]
+                            count = 1
+                        }
                     }
+                    if count == 4 {
+                        return true
+                    }
+                } else {
+                    continue
                 }
-                if count == 4 {
-                    return true
-                }
-            } else {
-                continue
             }
         }
     }
+    //тут проходимся по строкам и смотрим одинаковые столбцы
+    for j in 1..<columns {
+        var icon = ""
+        var count = 0
+        for i in stride(from: gamePlace.count - 2, through: 1, by: -1) {
+            if i != 0 && i != gamePlace.endIndex - 1 {
+                if gamePlace[i][j] != "\u{2016}" && gamePlace[i][j] != " " {
+                    if i == gamePlace.endIndex - 2 {
+                        icon = gamePlace[i][j]
+                        count += 1
+                    } else {
+                        if icon == gamePlace[i][j] {
+                            count += 1
+                        } else {
+                            icon = gamePlace[i][j]
+                            count = 1
+                        }
+                    }
+                    if count == 4 {
+                        return true
+                    }
+                } else {
+                    continue
+                }
+            }
+        }
     }
     return false
 }
