@@ -1664,18 +1664,23 @@ import Foundation
 // MARK: - Двадцать четвертая задача
 
 //Выполнить Проект ‘Соедини Четыре’:
-
+var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+var playersCount: Int = 0
+var players: [(String, String)] = []
 print("Connect four")
-print("First player's name:")
-guard let firstPlayerName = readLine() else {
-    print("Неверный ввод. Повторите попытку")
+print("Введите количество игроков:")
+guard let count = readLine(), let playerzCount = Int(count), playerzCount != 0 && playerzCount < alphabet.count else {
+    print("Error")
     exit(0)
 }
-print("Second player's name:")
-guard let secondPlayerName = readLine() else {
-    print("Неверный ввод. Повторите попытку")
-    exit(0)
+playersCount = playerzCount
+for i in 0..<playersCount {
+    print("Player's name:")
+    if let playerName = readLine() {
+        players.append((playerName, alphabet[i]))
+    }
 }
+print("Players: \(players)")
 
 var globalRows = 0
 var globalColumns = 0
@@ -1709,24 +1714,87 @@ repeat {
             print("Board should be from 5 to 9")
         }
     } else {
-        globalRows = 6
-        globalColumns = 7
+        rows = 6
+        columns = 7
+        break
     }
 } while !(diapazon.contains(rows)) || !(diapazon.contains(columns)) //здесь должно быть все true, чтобы пойти по новой ветке repeat и false, чтобы выйти
 //} while !(rows > 9 && rows < 5) || !(columns > 9 && columns < 5)
 
-
-print("\(firstPlayerName) VS \(secondPlayerName)")
 print("\(rows) x \(columns) board\n")
 
 
-var gamePlace = Array(repeating: Array(repeating: "", count: rows * 2 + 1), count: columns + 2)//по горизонтали делаем в два раза больше + 1 поле, чтобы разместить в массиве границы и элементы. По вертикали
+var gamePlace = Array(repeating: Array(repeating: " ", count: rows * 2 + 1), count: columns + 2)//по горизонтали делаем в два раза больше + 1 поле, чтобы разместить в массиве границы и элементы. По вертикали
 //первый игрок это о, второй игрок *
 //создаем стенки на всем поле
 createGamePlace(board: &gamePlace)
 
 printGamePlace(board: gamePlace)
 
+//мы даем пользователю ввести номер столбца (N)
+//Затем мы проверяем нет ли элемента в 1 строке столбца N
+//Если нет, то в цикле с конца выбранного столбца N проверяем свободна ли ячейка. Если нет, то идем на -1 ячейку дальше, если да, то размещаем там о или * и выходим к следующему игроку
+
+//тут нужен цикл, который будет просить человека ввести номер столбца до тех пор, пока не будет выбран столбец со свободным верхним элементом
+//repeat для первого игрока
+var step = 0
+while isGameOver(board: gamePlace) {
+    repeat {
+        for player in players {
+            var flag = true
+            while flag {
+                print("\(player.0)'s turn:")
+                guard let stepz = readLine() else {
+                    print("Неверный ввод. Повторите попытку")
+                    exit(0)
+                    // подумать
+                }
+                guard let enterSteps = Int(stepz) else { exit(0) }
+                step = enterSteps
+                if stepz == "end" {
+                    print("Game over!")
+                    break
+                } else if gamePlace[gamePlace.startIndex + 1][step * 2 - 1] != " " {
+                    print("Column \(step) is full")
+                    flag = true
+                } else {
+                    insertPiece(colomn: step, piece: player.1)
+                    if checkWin(gamePlace: &gamePlace) {
+                        print("Выигрыш")
+                        printGamePlace(board: gamePlace)
+                        break
+                    }
+                    printGamePlace(board: gamePlace)
+                    flag = false
+                }
+            }
+        }
+        break
+    } while !isGameOver(board: gamePlace)
+}
+//метод, который принимает в себя столбец и символ, который нужно вставить
+func insertPiece(colomn: Int, piece: String) {
+    for i in stride(from: gamePlace.count - 2, through: 1, by: -1) {
+        if gamePlace[i][colomn * 2 - 1] == " " {
+            gamePlace[i][colomn * 2 - 1] = piece
+            step = 0
+            break
+        }
+    }
+}
+
+func isGameOver(board: [[String]]) -> Bool {
+    for (i, row) in board.enumerated() { //строки
+        for (j, _) in row.enumerated() { //столбцы
+            if i == 1 && board[i][j] == " " {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+    return false
+}
 func printGamePlace(board: [[String]]) {
     for (i, row) in board.enumerated() { //строки
         for (j, _) in row.enumerated() { //столбцы
@@ -1742,15 +1810,72 @@ func createGamePlace(board: inout [[String]]) {
             if i == 0 && j % 2 == 0 && j < rows * 2 { // здесь мы заполняем первую строку номерами столбцов
                 board[i][j + 1] = "\((j + 1) / 2 + 1)"
             } else if i == board.endIndex - 1 { //заполняем последнюю строку =
-                if j < board.endIndex{
+                if j <= rows + 6 {
                 board[i][j] = "\u{003D}" // =
                 }
-            } else { //заполняем все остальное через одну строку ‖
+            } else //заполняем все остальное через одну строку ‖
                 if j % 2 == 0  && i != 0 {
                     board[i][j] = "\u{2016}"// ‖
                 }
             }
         }
     }
-}
 
+func checkWin(gamePlace: inout [[String]]) -> Bool {
+//    for (i, row) in gamePlace.enumerated() {//строки
+//        var count = 0
+//        var icon = ""
+//        if i != 0 && i != gamePlace.endIndex - 1 {
+//            for (j, _) in row.enumerated() {//столбцы
+//                if gamePlace[i][j] != "\u{2016}" && gamePlace[i][j] != " " {
+//                    if j == 1 {
+//                        icon = gamePlace[i][j]
+//                        count += 1
+//                    } else {
+//                        if icon == gamePlace[i][j] {
+//                            count += 1
+//                        } else {
+//                            icon = gamePlace[i][j]
+//                            count = 1
+//                        }
+//                    }
+//                    if count == 4 {
+//                        return true
+//                    }
+//                } else {
+//                    continue
+//                }
+//            }
+//        }
+//    }
+
+    
+    //тут проходимся по строкам
+    for (i, row) in gamePlace.enumerated() {//строки
+        var count = 0
+        var icon = ""
+        if i != 0 && i != gamePlace.endIndex - 1 {
+        for (j, _) in row.enumerated() {//столбцы
+            if gamePlace[i][j] != "\u{2016}" && gamePlace[i][j] != " " {
+                if i == 1 {
+                    icon = gamePlace[i][j]
+                    count += 1
+                } else {
+                    if icon == gamePlace[i][j] {
+                        count += 1
+                    } else {
+                        icon = gamePlace[i][j]
+                        count = 1
+                    }
+                }
+                if count == 4 {
+                    return true
+                }
+            } else {
+                continue
+            }
+        }
+    }
+    }
+    return false
+}
