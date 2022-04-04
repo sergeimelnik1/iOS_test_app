@@ -27,7 +27,7 @@ class GameScene: SKScene {
     // вызывается при первом запуске сцены
     override func didMove(to view: SKView) {
         // цвет фона сцены
-        backgroundColor = SKColor.black
+        backgroundColor = SKColor.white
         // вектор и сила гравитации
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         // добавляем поддержку физики
@@ -90,11 +90,18 @@ class GameScene: SKScene {
             
             // если это наша кнопка, заливаем ее зеленым
             touchedNode.fillColor = .green
+            
             // определяем, какая кнопка нажата, и поворачиваем в нужную сторону
             if touchedNode.name == "counterClockwiseButton" {
                 snake!.moveCounterClockwise()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    touchedNode.fillColor = .gray
+                }
             } else if touchedNode.name == "clockwiseButton" {
                 snake!.moveClockwise()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    touchedNode.fillColor = .gray
+                }
             }
         }
     }
@@ -108,7 +115,7 @@ class GameScene: SKScene {
                 return
             }
             //но делаем цвет снова серым
-            touchedNode.fillColor = UIColor.gray
+            touchedNode.fillColor = .gray
             // вызывается при обрыве нажатия на экран, например, если телефон принял звонок и свернет приложение
         }
     }

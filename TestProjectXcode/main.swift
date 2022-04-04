@@ -5,8 +5,8 @@ import Foundation
 //Решить квадратное уравнение.
 
 //первое решение
-//quadraticEquation(a: 1, b: -1, c: 0)
-//quadraticEquation(a: 9, b: 6, c: 1) //D = 0
+//quadraticEquation(a: 1, b: 15, c: 0)
+//quadraticEquation(a: -1, b: 6, c: -10) //D = 0
 //
 //
 //func quadraticEquation(a: Double, b: Double, c: Double) {
@@ -61,16 +61,19 @@ import Foundation
 //var summ = 0.0
 //var percentt = 0.0
 //var flag = false
+//#warning("Ввод суммы -1000")
+//
 //repeat {
 //print("Введите сумму вклада:")
 //guard let inputSum = readLine(),
-//      let sum = Double(inputSum) else {
+//      let sum = Double(inputSum), sum > 0  else {
 //        print("Неверный ввод. Повторите попытку")
 //          continue
 //}
 //print("Введите процентную ставку:")
+//#warning("Ввод ставки -12")
 //guard let inputPercent = readLine(),
-//    let percent = Double(inputPercent) else {
+//    let percent = Double(inputPercent), percent > 0 else {
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
@@ -78,8 +81,6 @@ import Foundation
 //    percentt = percent
 //    flag = true
 //    } while !flag
-//
-//
 //
 //print("Сумма вклада через \(year) лет будет равна: \(bankDeposit(sum: summ, percent: percentt, year: year))")
 //
@@ -382,19 +383,23 @@ import Foundation
 //print(firstCar.brandName)
 //var secondCar = tunkCar()
 //print(secondCar.brandName)
+//var flag = false
+//repeat {
 //print("Хотите открыть багажник?")
 //print("Если хотите, то введите ДА, если нет - НЕТ")
-//guard var trunkAnswer = readLine() else {
+//guard let trunkAnswer = readLine() else {
 //        print("Неверный ввод. Повторите попытку")
-//        exit(0)
+//        continue
 //}
-//if trunkAnswer == "ДА" {
+//#warning("Заново не запускается при 1 или другого значения кроме ДА или НЕТ")
+//    if trunkAnswer.lowercased() == "да" {
 //    secondCar.openTrunk()
-//} else if trunkAnswer == "НЕТ" {
+//    flag = true
+//    } else if trunkAnswer.lowercased() == "нет" {
 //    secondCar.closeTrunk()
-//} else {
-//    print("попробуй в следующий раз")
+//    flag = true
 //}
+//} while !flag
 
 // MARK: - Шестая задача
 
@@ -736,18 +741,19 @@ import Foundation
 
 //Напишите программу, которая читает слово и печатает все буквы алфавита, которые не используются в этом слове.
 //Учитываются только строчные буквы.
-
-//var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+#warning("Вводим 1, 2, f - ошибка + русский алфавит")
+//var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "а", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я"]
+////еёжзийклмнопрстуфхцчшщъыьэюя
 //var flag  = false
 //var inputWordd: String = ""
 //let searchString = #"^([\p{L},.'’-]+(\s|$))+"#
 //repeat {
 //print("Введите слово:")
-//    guard let inputWord = readLine(), (inputWord.range(of: searchString, options: .regularExpression) != nil) else {
+//    guard let inputWord = readLine(), inputWord.range(of: searchString, options: .regularExpression) != nil, isInt(text: inputWord) == nil else {
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //}
-//    inputWordd = inputWord
+//    inputWordd = inputWord.lowercased()
 //    flag = true
 //} while !flag
 //var outputWord = [Character]()
@@ -763,11 +769,15 @@ import Foundation
 //var set = Set(outputWord)
 //let entryMas = alphabet.subtracting(set).sorted()
 //print(entryMas)
-//print(entryMas[0]) //выводим первый элемент множества
-
+//
+//
+//func isInt(text: String) -> Int? {
+//        guard let myHer = Int(text) else { return nil }
+//        return myHer
+//    }
 
 // MARK: - Десятая задача
-
+#warning("падение если нет цифр")
 //Напишите программу, которая читает комбинацию букв и цифр и печатает первую цифру в ней. Гарантируется, что в комбинации есть хотя бы одна цифра.
 //первый вариант решения через множества и объединение
 //var alphabet: Set<Character> = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
@@ -787,15 +797,19 @@ import Foundation
 //        continue
 //    }
 //}
-//print(outputWord[0])
+//if let word = outputWord.first {
+//    print(word)
+//} else {
+//    print("Цифр нема")
+//}
 
 // MARK: - Одинадцатая задача
 
 //Напишите программу, которая читает букву и печатает все предшествующие буквы английского алфавита.
-
+#warning("не прошло тест при a")
 //var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 //let searchString = #"^([\p{L},.'’-]+(\s|$))+"#
-
+//
 //var flag = false
 //var inputWordd = ""
 //repeat {
@@ -808,6 +822,10 @@ import Foundation
 //    inputWordd = inputWord
 //} while !flag
 //var item = 0
+//if inputWordd.first == "a" {
+//        print("a")
+//        exit(0)
+//}
 //while alphabet[item] != inputWordd {
 //    print(alphabet[item])
 //    item += 1
@@ -820,14 +838,14 @@ import Foundation
 
 // MARK: - Двенадцатая задача
 
-
+ #warning("Не считаются цифры в слове + символы")
 //Напишите программу, которая читает слово и печатает количество символов, встречающихся в нем только один раз.
 //let searchString = #"^([\p{L},.'’-]+(\s|$))+"#
 //var flag = false
 //var inputWordd = ""
 //repeat {
 //print("Введите слово:")
-//guard let inputWord = readLine(), inputWord.range(of: searchString, options: .regularExpression) != nil else {
+//guard let inputWord = readLine() else {
 //    print("Неверный ввод. Повторите попытку")
 //continue
 //}
@@ -874,165 +892,163 @@ import Foundation
 //Пример вывода 2:
 //2 3 4 5
 //1 5
-
-//создание двумерного массива 5х5
-//let size = 5
-//var gamePlace = Array(repeating: Array(repeating: 0, count: size), count: size)
-//func printMass(board: [[Int]]) {
-//    board.forEach({print($0)})
-//}
-//printMass(board: gamePlace)
+#warning("не прошло тест")
+////создание двумерного массива 5х5
+let size = 5
+var gamePlace = Array(repeating: Array(repeating: 0, count: size), count: size)
+func printMass(board: [[Int]]) {
+    board.forEach({print($0)})
+}
+printMass(board: gamePlace)
 ////1. Берем первую строку, разбиваем её на 2 части, переводим их в Int, сравниваем входят ли они в границы нашей области, если все ок, то идем к следующему вводу строки
 ////затем считываем значения позиций кораблей
-//print("Введите координаты первого корабля:")
-//for item in 0...9 {
-//    if item == 9 {
-//        print("Может быть уже правильно введешь?")
-//    }
-//    guard let positionWarship_1 = readLine() else {
-//        print("Неверный ввод. Повторите попытку")
-//        exit(0)
-//    }
-//    let separatePosition_1 = positionWarship_1.components(separatedBy: " ")
-//    //две проверки на то, что введены именно цифры
-//    guard let first1 = Int(separatePosition_1[0]) else {
-//        print("Вы ввели не координату")
-//        continue
-//    }
-//    guard let first2 = Int(separatePosition_1[1]) else {
-//        print("Вы ввели не координату")
-//        continue
-//    }
-//    guard 1...size ~= first1 else {
-//        print("Число не в диапазоне значений")
-//        continue
-//    }
-//    guard 1...size ~= first2 else {
-//        print("Число не в диапазоне значений")
-//        continue
-//    }
-//    let firstTuple: (Int, Int) = (first1, first2)
-//    change(gamePlace: &gamePlace, position: firstTuple)
-//    if item == 9 {
-//        print("Умница, наконец смог")
-//        print(firstTuple)
-//    } else {
-//        print(firstTuple)
-//        printMass(board: gamePlace)
-//    }
-//    break
-//}
-//
-//print("Введите координаты второго корабля:")
-//for _ in 0...9 {
-//
-//    guard let positionWarship_2 = readLine() else {
-//        print("Неверный ввод. Повторите попытку")
-//        exit(0)
-//    }
-//    let separatePosition_2 = positionWarship_2.components(separatedBy: " ")
-//    //две проверки на то, что введены именно цифры
-//    guard let second1 = Int(separatePosition_2[0]) else {
-//        print("Вы ввели не координату")
-//        continue
-//    }
-//    guard let second2 = Int(separatePosition_2[1]) else {
-//        print("Вы ввели не координату")
-//        continue
-//    }
-//    guard 1...size ~= second1 else {
-//        print("Число не в диапазоне значений")
-//        continue
-//    }
-//    guard 1...size ~= second2 else {
-//        print("Число не в диапазоне значений")
-//        continue
-//    }
-//
-//    let secondTuple: (Int, Int) = (second1, second2)
-//    change(gamePlace: &gamePlace, position: secondTuple)
-//    print(secondTuple)
-//    break
-//}
-//printMass(board: gamePlace)
-//print("Введите координаты третьего корабля:")
-//for _ in 0...9 {
-//    guard let positionWarship_3 = readLine() else {
-//        print("Неверный ввод. Повторите попытку")
-//        exit(0)
-//    }
-//    let separatePosition_3 = positionWarship_3.components(separatedBy: " ")
-//    //две проверки на то, что введены именно цифры
-//    guard let third1 = Int(separatePosition_3[0]) else {
-//        print("Вы ввели не координату")
-//        continue
-//    }
-//    guard let third2 = Int(separatePosition_3[1]) else {
-//        print("Вы ввели не координату")
-//        continue
-//    }
-//    guard 1...size ~= third1 else {
-//        print("Число не в диапазоне значений")
-//        continue
-//    }
-//    guard 1...size ~= third2 else {
-//        print("Число не в диапазоне значений")
-//        continue
-//    }
-//    let thirdTuple: (Int, Int) = (third1, third2)
-//    change(gamePlace: &gamePlace, position: thirdTuple)
-//    print(thirdTuple)
-//    break
-//}
-//printMass(board: gamePlace)
+print("Введите координаты первого корабля:")
+for item in 0...9 {
+    if item == 9 {
+        print("Может быть уже правильно введешь?")
+    }
+    guard let positionWarship_1 = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        continue
+    }
+
+    let separatePosition_1 = positionWarship_1.components(separatedBy: " ")
+    //две проверки на то, что введены именно цифры
+    guard let first1 = Int(separatePosition_1[0]) else {
+        print("Вы ввели не координату")
+        continue
+    }
+
+    guard let first2 = Int(separatePosition_1[1]) else {
+        print("Вы ввели не координату")
+        continue
+    }
+    guard 1...size ~= first1 else {
+        print("Число не в диапазоне значений")
+        continue
+    }
+    guard 1...size ~= first2 else {
+        print("Число не в диапазоне значений")
+        continue
+    }
+    let firstTuple: (Int, Int) = (first1, first2)
+    change(gamePlace: &gamePlace, position: firstTuple)
+    if item == 9 {
+        print("Умница, наконец смог")
+        print(firstTuple)
+    } else {
+        print(firstTuple)
+        printMass(board: gamePlace)
+    }
+    break
+}
+
+print("Введите координаты второго корабля:")
+for _ in 0...9 {
+
+    guard let positionWarship_2 = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    let separatePosition_2 = positionWarship_2.components(separatedBy: " ")
+    //две проверки на то, что введены именно цифры
+    guard let second1 = Int(separatePosition_2[0]) else {
+        print("Вы ввели не координату")
+        continue
+    }
+    guard let second2 = Int(separatePosition_2[1]) else {
+        print("Вы ввели не координату")
+        continue
+    }
+    guard 1...size ~= second1 else {
+        print("Число не в диапазоне значений")
+        continue
+    }
+    guard 1...size ~= second2 else {
+        print("Число не в диапазоне значений")
+        continue
+    }
+
+    let secondTuple: (Int, Int) = (second1, second2)
+    change(gamePlace: &gamePlace, position: secondTuple)
+    print(secondTuple)
+    break
+}
+printMass(board: gamePlace)
+print("Введите координаты третьего корабля:")
+for _ in 0...9 {
+    guard let positionWarship_3 = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        exit(0)
+    }
+    let separatePosition_3 = positionWarship_3.components(separatedBy: " ")
+    //две проверки на то, что введены именно цифры
+    guard let third1 = Int(separatePosition_3[0]) else {
+        print("Вы ввели не координату")
+        continue
+    }
+    guard let third2 = Int(separatePosition_3[1]) else {
+        print("Вы ввели не координату")
+        continue
+    }
+    guard 1...size ~= third1 else {
+        print("Число не в диапазоне значений")
+        continue
+    }
+    guard 1...size ~= third2 else {
+        print("Число не в диапазоне значений")
+        continue
+    }
+    let thirdTuple: (Int, Int) = (third1, third2)
+    change(gamePlace: &gamePlace, position: thirdTuple)
+    print(thirdTuple)
+    break
+}
+printMass(board: gamePlace)
 //
 ////далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
-//func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
-//    for (i, row) in gamePlace.enumerated() {
-//        if i == position.0 - 1 {
-//            for (j, _) in row.enumerated() {
-//                if j == position.1 - 1 {
-//                    gamePlace[position.0 - 1][position.1 - 1] = 1
-//                }
-//            }
-//        }
-//    }
-//}
-//checkFreePlace(gamePlace: &gamePlace)
-////инвертируем массив
-//
+func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
+    for (i, row) in gamePlace.enumerated() {
+        if i == position.0 - 1 {
+            for (j, _) in row.enumerated() {
+                if j == position.1 - 1 {
+                    gamePlace[position.0 - 1][position.1 - 1] = 1
+                }
+            }
+        }
+    }
+}
+checkFreePlace(gamePlace: &gamePlace)
+
 ////затем мне нужно проверить в цикле свободные строки и свободные столбцы
-//func checkFreePlace (gamePlace: inout [[Int]]) {
-//    //тут проходимся по строкам
-//    for (i, row) in gamePlace.enumerated() {//строки
-//        var count = 0
-//        for (j, _) in row.enumerated() {//столбцы
-//            if gamePlace[i][j] == 0 {
-//                count += 1
-//                if count == 5{
-//                    print("Строка \(i + 1) свободна")
-//                    count = 0
-//                }
-//            }
-//        }
-//    }
-//
-//    for i in 0..<size {
-//        var count = 0
-//        for (_, row) in gamePlace.enumerated() {
-//            if row[i] == 0 {
-//                count += 1
-//                if count == 5{
-//                    print("Столбец \(i + 1) свободен")
-//                    count = 0
-//                }
-//            }
-//        }
-//    }
-//}
+func checkFreePlace (gamePlace: inout [[Int]]) {
+    //тут проходимся по строкам
+    for (i, row) in gamePlace.enumerated() {//строки
+        var count = 0
+        for (j, _) in row.enumerated() {//столбцы
+            if gamePlace[i][j] == 0 {
+                count += 1
+                if count == 5{
+                    print("Строка \(i + 1) свободна")
+                    count = 0
+                }
+            }
+        }
+    }
 
-
-
+    for i in 0..<size {
+        var count = 0
+        for (_, row) in gamePlace.enumerated() {
+            if row[i] == 0 {
+                count += 1
+                if count == 5{
+                    print("Столбец \(i + 1) свободен")
+                    count = 0
+                }
+            }
+        }
+    }
+}
 
 // MARK: - Четырнадцатая. ПАРОЛЬ
 
@@ -1046,6 +1062,7 @@ import Foundation
 //Пример вывода 1:
 //PaSsw0rD
 //
+#warning("не прошло тест")
 //var lowCaseLetterz = 0
 //var upCaseLettersz = 0
 //var countNumbersz = 0
@@ -1059,7 +1076,7 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
-//    guard let lowCaseLetters = Int(enterLowCaseLetters) else {
+//    guard let lowCaseLetters = Int(enterLowCaseLetters), lowCaseLetters >= 0 else {
 //        print("Вы ввели не длину пароля")
 //        continue
 //    }
@@ -1075,7 +1092,7 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
-//    guard let upCaseLetters  = Int(enterUpCaseLetters) else {
+//    guard let upCaseLetters  = Int(enterUpCaseLetters), upCaseLetters >= 0 else {
 //        print("Вы ввели не длину пароля")
 //        continue
 //    }
@@ -1092,7 +1109,7 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
-//    guard let countNumbers  = Int(enterCountNumbers) else {
+//    guard let countNumbers  = Int(enterCountNumbers), countNumbers >= 0 else {
 //        print("Вы ввели не длину пароля")
 //        continue
 //    }
@@ -1141,7 +1158,7 @@ import Foundation
 //    }
 //}
 //
-//randomString(lowCaseLetters: lowCaseLetterz, upCaseLetters: upCaseLettersz, countNumbers: countNumbersz, enterLengthPassword: enterLengthPasswordz)
+//print("Итоговый пароль: \(randomString(lowCaseLetters: lowCaseLetterz, upCaseLetters: upCaseLettersz, countNumbers: countNumbersz, enterLengthPassword: enterLengthPasswordz))")
 //
 ////для генерации каждого из блоков делаем отдельный словарь из заглавных, строчных и цифр и генерируем рандомно по частям его String((0..<length).map{ _ in letters.randomElement()! })
 ////затем конкатенацией объединяем пароль и в цикле мешаем его элементы до тех пор пока рядом не будут стоять одинаковые элементы
@@ -1155,39 +1172,48 @@ import Foundation
 //
 //    randomLowLetters = String((0..<lowCaseLetters).map{ _ in lowLetters.randomElement()! })
 //    for _ in 0...1000 {
+//        if randomLowLetters.count == 0 {
+//            break
+//        }
 //        if isSame(mass: randomLowLetters) {
-//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+////            print("Не получается сделать уникальный пароль. Пробуем еще раз")
 //            randomLowLetters = String((randomLowLetters).map{ _ in lowLetters.randomElement()! })
-//            print("Перемешиваю")
+////            print("Перемешиваю")
 //            continue
 //        } else {
-//            print("Я сделал \(randomLowLetters)")
+////            print("Я сделал \(randomLowLetters)")
 //            break
 //        }
 //    }
 //    var randomUpLetters = ""
 //    randomUpLetters = String((0..<upCaseLetters).map{ _ in upLetters.randomElement()! })
 //    for _ in 0...1000 {
+//        if randomUpLetters.count == 0 {
+//            break
+//        }
 //        if isSame(mass: randomUpLetters) {
-//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+////            print("Не получается сделать уникальный пароль. Пробуем еще раз")
 //            randomUpLetters = String((randomUpLetters).map{ _ in upLetters.randomElement()! })
 //            print("Перемешиваю")
 //            continue
 //        } else {
-//            print("Я сделал \(randomUpLetters)")
+////            print("Я сделал \(randomUpLetters)")
 //            break
 //        }
 //    }
 //    var randomNumbers = ""
 //    randomNumbers = String((0..<countNumbers).map{ _ in numbers.randomElement()! })
 //    for _ in 0...1000 {
+//        if randomNumbers.count == 0 {
+//            break
+//        }
 //        if isSame(mass: randomNumbers) {
-//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+////            print("Не получается сделать уникальный пароль. Пробуем еще раз")
 //            randomNumbers = String((randomNumbers).map{ _ in numbers.randomElement()! })
-//            print("Перемешиваю")
+////            print("Перемешиваю")
 //            continue
 //        } else {
-//            print("Я сделал \(randomNumbers)")
+////            print("Я сделал \(randomNumbers)")
 //            break
 //        }
 //    }
@@ -1199,17 +1225,16 @@ import Foundation
 //            break
 //        }
 //        if isSame(mass: randomAdditional) {
-//            print("Не получается сделать уникальный пароль. Пробуем еще раз")
+////            print("Не получается сделать уникальный пароль. Пробуем еще раз")
 //            randomAdditional = String((randomAdditional).map{ _ in additionalAlphabet.randomElement()! })
-//            print("Перемешиваю")
+////            print("Перемешиваю")
 //            continue
 //        }else {
-//            print("Я сделал \(randomAdditional)")
+////            print("Я сделал \(randomAdditional)")
 //            break
 //        }
 //    }
 //    endString = randomLowLetters + randomUpLetters + randomNumbers + randomAdditional
-//    print("Итоговый пароль: \(endString)")
 //    return endString
 //}
 
@@ -1355,7 +1380,7 @@ import Foundation
 //Hello 3
 //Sample Output 1:
 //loHel
-
+#warning("не воспринимает -1")
 //var flag = false
 //var numberr = 0
 //var wordd = ""
@@ -1370,7 +1395,7 @@ import Foundation
 //        continue
 //    }
 //    let word = enterWord[0]
-//    guard let number = Int(enterWord[1]) else {
+//    guard let number = Int(enterWord[1]), number >= 0 else {
 //        print("Ошибка")
 //        continue
 //    }
@@ -1404,20 +1429,21 @@ import Foundation
 //abcd
 //Sample Output 2:
 //ad
-
+#warning("обработка пробелом")
 //print("Введите слово")
 //    guard let enterLine = readLine() else {
 //        print("Неверный ввод. Повторите попытку")
 //        exit(0)
 //    }
-//
-//if enterLine.count % 2 == 0 {
+//let clearText = enterLine.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+//print(clearText)
+//if clearText.count % 2 == 0 {
 //    print("Четный")
-//    print(enterLine.prefix(enterLine.count / 2 - 1) + enterLine.suffix(enterLine.count / 2 - 1))
+//    print(clearText.prefix(clearText.count / 2 - 1) + clearText.suffix(clearText.count / 2 - 1))
 //
 //} else {
 //    print("Нечетный")
-//    print(enterLine.prefix(enterLine.count / 2) + enterLine.suffix(enterLine.count / 2))
+//    print(clearText.prefix(clearText.count / 2) + clearText.suffix(clearText.count / 2))
 //}
 
 
@@ -1439,6 +1465,7 @@ import Foundation
 //ll
 //Sample Output 2:
 //3
+#warning("обработка пробелов")
 //let searchString = #"^([\p{L},.'’-]+(\s|$))+"#
 //var flag = false
 //var enterLinee = ""
@@ -1449,19 +1476,19 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
+//    let clearText_1 = enterLine.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
 //    print("Введите вторую строку")
 //    guard let word = readLine() else {
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
+//    let clearText_2 = word.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
 //    flag = true
-//    enterLinee = enterLine
-//    wordd = word
+//    enterLinee = clearText_1
+//    wordd = clearText_2
 //} while !flag
 //let tok = enterLinee.components(separatedBy: wordd)
 //print(tok.count - 1)
-
-
 
 // MARK: - Двадцатая задача
 
@@ -1478,6 +1505,7 @@ import Foundation
 //Sample Output 2:
 //false
 //
+#warning("пробелы")
 //let searchString = #"^([\p{L},.'’-]+(\s|$))+"#
 //let alphabet = "abcdefghijklmnopqrstuvwxyz"
 //var flag = false
@@ -1488,8 +1516,9 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //    }
+//    let clearText = enterLine.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
 //    flag = true
-//    enterLinee = enterLine
+//    enterLinee = clearText
 //} while !flag
 //print(enterLinee.first!)//тут мы нашли перый элемент введенной фразы
 //
@@ -1696,8 +1725,8 @@ import Foundation
 
 
 // MARK: - Двадцать четвертая. ИГРА
-
-//Выполнить Проект ‘Соедини Четыре’:
+//#warning("проверка на - + 0, дефолт сломан")
+////Выполнить Проект ‘Соедини Четыре’:
 //var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 //var playersCount: Int = 0
 //var players: [(String, String, Int)] = []
