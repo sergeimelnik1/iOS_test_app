@@ -61,7 +61,7 @@ import Foundation
 //var summ = 0.0
 //var percentt = 0.0
 //var flag = false
-//#warning("Ввод суммы -1000")
+#warning("Ввод суммы -1000")
 //
 //repeat {
 //print("Введите сумму вклада:")
@@ -71,7 +71,7 @@ import Foundation
 //          continue
 //}
 //print("Введите процентную ставку:")
-//#warning("Ввод ставки -12")
+#warning("Ввод ставки -12")
 //guard let inputPercent = readLine(),
 //    let percent = Double(inputPercent), percent > 0 else {
 //        print("Неверный ввод. Повторите попытку")
@@ -391,7 +391,7 @@ import Foundation
 //        print("Неверный ввод. Повторите попытку")
 //        continue
 //}
-//#warning("Заново не запускается при 1 или другого значения кроме ДА или НЕТ")
+#warning("Заново не запускается при 1 или другого значения кроме ДА или НЕТ")
 //    if trunkAnswer.lowercased() == "да" {
 //    secondCar.openTrunk()
 //    flag = true
@@ -892,39 +892,45 @@ import Foundation
 //Пример вывода 2:
 //2 3 4 5
 //1 5
-#warning("не прошло тест")
+#warning("не прошло тест, нет проверки на занятость точки")
 ////создание двумерного массива 5х5
 let size = 5
 var gamePlace = Array(repeating: Array(repeating: 0, count: size), count: size)
 func printMass(board: [[Int]]) {
     board.forEach({print($0)})
 }
+//gamePlace[2][2] = 1
 printMass(board: gamePlace)
+
 ////1. Берем первую строку, разбиваем её на 2 части, переводим их в Int, сравниваем входят ли они в границы нашей области, если все ок, то идем к следующему вводу строки
 ////затем считываем значения позиций кораблей
-print("Введите координаты первого корабля:")
 for item in 0...9 {
+    
     if item == 9 {
         print("Может быть уже правильно введешь?")
     }
-    guard let positionWarship_1 = readLine() else {
+    print("Введите первую координату первого корабля:")
+    guard let positionWarship_x = readLine() else {
         print("Неверный ввод. Повторите попытку")
         continue
     }
-
-    let separatePosition_1 = positionWarship_1.components(separatedBy: " ")
-    //две проверки на то, что введены именно цифры
-    guard let first1 = Int(separatePosition_1[0]) else {
-        print("Вы ввели не координату")
-        continue
-    }
-
-    guard let first2 = Int(separatePosition_1[1]) else {
-        print("Вы ввели не координату")
+    let x = positionWarship_x.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    guard let first1 = Int(x) else {
+        print("Вы ввели не координаты")
         continue
     }
     guard 1...size ~= first1 else {
         print("Число не в диапазоне значений")
+        continue
+    }
+    print("Введите вторую координату второго корабля:")
+    guard let positionWarship_y = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        continue
+    }
+    let y = positionWarship_y.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    guard let first2 = Int(y) else {
+        print("Вы ввели не координаты")
         continue
     }
     guard 1...size ~= first2 else {
@@ -932,7 +938,12 @@ for item in 0...9 {
         continue
     }
     let firstTuple: (Int, Int) = (first1, first2)
+    if gamePlace[first1 - 1][first2 - 1] != 1 {
     change(gamePlace: &gamePlace, position: firstTuple)
+    } else {
+        print("Место занято, попробуйте еще раз")
+        continue
+    }
     if item == 9 {
         print("Умница, наконец смог")
         print(firstTuple)
@@ -943,70 +954,105 @@ for item in 0...9 {
     break
 }
 
-print("Введите координаты второго корабля:")
-for _ in 0...9 {
-
-    guard let positionWarship_2 = readLine() else {
+for item in 0...9 {
+    
+    if item == 9 {
+        print("Может быть уже правильно введешь?")
+    }
+    print("Введите первую координату второго корабля:")
+    guard let positionWarship_x = readLine() else {
         print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    let separatePosition_2 = positionWarship_2.components(separatedBy: " ")
-    //две проверки на то, что введены именно цифры
-    guard let second1 = Int(separatePosition_2[0]) else {
-        print("Вы ввели не координату")
         continue
     }
-    guard let second2 = Int(separatePosition_2[1]) else {
-        print("Вы ввели не координату")
+    let x = positionWarship_x.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    guard let first1 = Int(x) else {
+        print("Вы ввели не координаты")
         continue
     }
-    guard 1...size ~= second1 else {
+    guard 1...size ~= first1 else {
         print("Число не в диапазоне значений")
         continue
     }
-    guard 1...size ~= second2 else {
+    print("Введите вторую координату второго корабля:")
+    guard let positionWarship_y = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        continue
+    }
+    let y = positionWarship_y.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    guard let first2 = Int(y) else {
+        print("Вы ввели не координаты")
+        continue
+    }
+    guard 1...size ~= first2 else {
         print("Число не в диапазоне значений")
         continue
     }
-
-    let secondTuple: (Int, Int) = (second1, second2)
-    change(gamePlace: &gamePlace, position: secondTuple)
-    print(secondTuple)
+    let firstTuple: (Int, Int) = (first1, first2)
+    if gamePlace[first1 - 1][first2 - 1] != 1 {
+    change(gamePlace: &gamePlace, position: firstTuple)
+    } else {
+        print("Место занято, попробуйте еще раз")
+        continue
+    }
+    if item == 9 {
+        print("Умница, наконец смог")
+        print(firstTuple)
+    } else {
+        print(firstTuple)
+        printMass(board: gamePlace)
+    }
     break
 }
-printMass(board: gamePlace)
-print("Введите координаты третьего корабля:")
-for _ in 0...9 {
-    guard let positionWarship_3 = readLine() else {
+for item in 0...9 {
+    
+    if item == 9 {
+        print("Может быть уже правильно введешь?")
+    }
+    print("Введите первую координату третьего корабля:")
+    guard let positionWarship_x = readLine() else {
         print("Неверный ввод. Повторите попытку")
-        exit(0)
-    }
-    let separatePosition_3 = positionWarship_3.components(separatedBy: " ")
-    //две проверки на то, что введены именно цифры
-    guard let third1 = Int(separatePosition_3[0]) else {
-        print("Вы ввели не координату")
         continue
     }
-    guard let third2 = Int(separatePosition_3[1]) else {
-        print("Вы ввели не координату")
+    let x = positionWarship_x.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    guard let first1 = Int(x) else {
+        print("Вы ввели не координаты")
         continue
     }
-    guard 1...size ~= third1 else {
+    guard 1...size ~= first1 else {
         print("Число не в диапазоне значений")
         continue
     }
-    guard 1...size ~= third2 else {
+    print("Введите вторую координату третьего корабля:")
+    guard let positionWarship_y = readLine() else {
+        print("Неверный ввод. Повторите попытку")
+        continue
+    }
+    let y = positionWarship_y.replacingOccurrences(of: " ", with: "", options: .literal, range: nil)
+    guard let first2 = Int(y) else {
+        print("Вы ввели не координаты")
+        continue
+    }
+    guard 1...size ~= first2 else {
         print("Число не в диапазоне значений")
         continue
     }
-    let thirdTuple: (Int, Int) = (third1, third2)
-    change(gamePlace: &gamePlace, position: thirdTuple)
-    print(thirdTuple)
+    let firstTuple: (Int, Int) = (first1, first2)
+    if gamePlace[first1 - 1][first2 - 1] != 1 {
+    change(gamePlace: &gamePlace, position: firstTuple)
+    } else {
+        print("Место занято, попробуйте еще раз")
+        continue
+    }
+    if item == 9 {
+        print("Умница, наконец смог")
+        print(firstTuple)
+    } else {
+        print(firstTuple)
+        printMass(board: gamePlace)
+    }
     break
 }
-printMass(board: gamePlace)
-//
-////далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
+//далее надо заполнить полученные значения в исходную таблицу, заменяя нули на единицы
 func change(gamePlace: inout [[Int]], position: (Int, Int) ) {
     for (i, row) in gamePlace.enumerated() {
         if i == position.0 - 1 {
@@ -1725,7 +1771,7 @@ func checkFreePlace (gamePlace: inout [[Int]]) {
 
 
 // MARK: - Двадцать четвертая. ИГРА
-//#warning("проверка на - + 0, дефолт сломан")
+#warning("проверка на - + 0, дефолт сломан")
 ////Выполнить Проект ‘Соедини Четыре’:
 //var alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 //var playersCount: Int = 0
